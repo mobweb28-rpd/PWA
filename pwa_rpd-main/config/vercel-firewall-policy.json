@@ -1,0 +1,18 @@
+{
+  "status": "NOT_APPLIED_DASHBOARD_CONFIGURATION_REQUIRED",
+  "format": "Operational policy and test fixture; NOT a native vercel.json configuration",
+  "plan": "Hobby",
+  "ruleName": "RPD public reads per IP",
+  "requestPathRegex": "^/(?:api/(?:homepage|program|about|podcast|schedule|now-playing)/?|(?:about|program|podcast)/?)?$",
+  "requestMethods": ["GET", "HEAD"],
+  "countingKeys": ["IP"],
+  "algorithm": "fixed_window",
+  "windowSeconds": 60,
+  "requestLimit": 60,
+  "action": "rate_limit",
+  "exceededStatus": 429,
+  "scope": "One combined allowance across matched pages/APIs per IP PER VERCEL REGION, shared by all users behind that IP",
+  "retryAfter": "Platform-controlled; verify native response header after activation, not guaranteed by this local policy",
+  "excluded": ["/api/stream", "external live audio", "/admin", "/_next", "/sw.js", "/manifest.json"],
+  "productionEnforcement": "None until an authorized operator saves and publishes the rule in Vercel Firewall"
+}

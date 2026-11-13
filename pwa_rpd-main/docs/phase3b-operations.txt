@@ -1,0 +1,128 @@
+RPD Phase 3B: deployment/operator handoff
+
+STATUS: CODE IMPLEMENTED LOCALLY; VERCEL FIREWALL RULE NOT APPLIED.
+No deployment, dashboard change, paid service, credential change, database change,
+or upstream load test has been performed. Keep unstable_cache and Phase 3A TTLs.
+
+VERCEL HOBBY RULE (one available rate-limit rule)
+
+config/vercel-firewall-policy.json is a reviewable policy/test fixture, NOT native
+vercel.json syntax. Vercel will NOT automatically activate it from this repository.
+
+An authorized project administrator must:
+1. Open the RPD project > Firewall > Configure > + New Rule.
+2. Name: RPD public reads per IP.
+3. If: Request Path > Matches expression. Paste this exact PCRE:
+   ^/(?:api/(?:homepage|program|about|podcast|schedule|now-playing)/?|(?:about|program|podcast)/?)?$
+4. AND: Method > Is any of > GET, HEAD.
+5. Then: Rate Limit. Strategy: Fixed Window. Time Window: 60 seconds.
+   Request Limit: 60. Counting key: IP only. Exceeded action: Default (429).
+6. Review the pricing dialog against the Hobby included allowance; do not authorize
+   paid usage or a plan upgrade as part of this patch. Save Rule > Review Changes >
+   Publish is the activation step and has NOT been performed here.
+
+Do not delete existing security rules to free a slot. If the single Hobby
+rate-limit slot is occupied, reconcile the existing policy with the project owner.
+
+Scope after activation: one COMBINED allowance, per IP PER VERCEL REGION, across
+six JSON APIs plus /, /about, /program, /podcast (including future server rendering).
+Current public HTML pages are static; their client API requests count separately.
+Query strings do not create new buckets. Audio /api/stream, external worker and
+VosCast audio, /admin, /_next, manifest and service worker are outside this rule.
+No application IP limiter or spoofable X-Forwarded-For parsing has been added.
+
+This is stricter than six separate 60/min endpoint budgets. Campus/office/mobile
+NAT users share the budget: roughly 15 active tabs polling four times/minute can
+consume 60 requests before navigation. Review false positives and adjust this
+initial threshold using Firewall observations. A Log-only rule does not enforce.
+Counters are regional, not one globally atomic 60/min allowance. Existing bypass
+rules may affect enforcement and must be reviewed in the actual project.
+
+Default action returns 429. Native Retry-After behavior is platform-controlled and
+is NOT guaranteed by the reviewed public docs. The local mock includes the header
+as a fixture; this does not prove the native header exists. Record the actual
+response header when the operator verifies the activated rule. Do not add a
+duplicate app limiter merely to manufacture an edge response header.
+
+Refresh cooldown/expired-content 503 responses from the app DO include Retry-After.
+
+CODE POLICIES
+
+Source                  Fresh TTL       Maximum TOTAL age from validation
+Homepage + Program      300 seconds     3600 seconds (55 minutes stale allowance)
+About                   900 seconds     86400 seconds
+Podcast                 900 seconds     86400 seconds
+Schedule                 60 seconds       300 seconds (4 minutes stale allowance)
+Now playing              15 seconds        60 seconds (45 seconds stale allowance)
+
+Each Data Cache entry contains validated data and its original validation time.
+Warm reads/failed refreshes never advance that timestamp. Invalid content cannot
+replace the good entry. After maximum age, the server rejects the expired entry;
+it may recover on the next request after a background refresh finishes.
+
+Success API payload shapes are unchanged. Failures retain existing generic shapes
+and HTTP 500; expired content/open cooldown returns 503 with Retry-After. Now-playing
+keeps the existing HTTP 200 {displayTitle} fallback using a neutral station label.
+Its X-RPD-Valid-Until header communicates the original expiry to the player; the
+client also expires old song information during network failures or hidden tabs.
+All these JSON responses use Cache-Control: no-store to avoid a second HTTP cache
+extending the content deadline. The internal Next Data Cache remains enabled.
+
+The fallback uses the existing managed Data Cache, not a new durable archive.
+Entries can be evicted. An empty cache plus upstream outage yields unavailable
+content, not invented data. No guarantee of backup survival after cache loss.
+
+UPSTREAM RELIABILITY
+
+Website/Sheets: total request budget 8 seconds. Each VosCast metadata read: total
+3 seconds. Maximum two HTTP attempts, including the first, inside that same budget.
+Retry network/timeout errors and HTTP 408/429/500/502/503/504. Backoff 200-299ms,
+or a longer Retry-After. Accepted Retry-After values are capped at five minutes;
+if the delay exceeds the remaining budget, fail now and enter cooldown instead.
+Malformed content and other HTTP failures are not retried. Audio is unchanged.
+
+Three failed source refreshes (not three HTTP attempts) open a 30-second cooldown.
+Provider Retry-After opens cooldown immediately, for at least 30 seconds and at
+most the accepted five-minute delay. Successful validated refresh resets failures.
+One pending refresh/probe is shared across route bundles in the SAME Node process,
+including background revalidation. State resets on process restart.
+
+This registry is NOT a distributed lock or distributed circuit breaker. Independent
+Vercel instances/regions can miss and refresh concurrently. Warm Data Cache entries
+are shared, but cannot provide atomic refresh admission. Tests explicitly reproduce
+the remaining cross-instance race. WAF limits clients after activation, not global
+upstream concurrency. No zero-stampede guarantee is made.
+
+Native Vercel request collapsing is documented for ISR/image optimization, not these
+dynamic API handlers. Runtime Cache has no documented atomic lock operation and is
+metered; it was not added. Strict cross-instance locks or a durable backup require
+a separately approved coordination/storage design. Supabase is not used for either.
+
+VALIDATION
+
+Use Node 22 and the existing fixtures/utilities. Targeted command:
+node --experimental-strip-types --test tests/phase3b.test.mjs tests/phase3a.test.mjs
+Then npm run typecheck, npm run lint, npm run build.
+Run npm test and npm run test:smoke once stable. Set RPD_TEST_REPORT_DIR to
+../reports/phase3b/ in the test shell to preserve previous smoke reports.
+
+Rate-limit tests model the policy locally; they do not exercise Vercel enforcement.
+The concurrency, timeout, 429/500/503, malformed-data, fallback and recovery tests
+use local fixtures. Mock-generated persistent fetch-cache entries are removed by
+the smoke harness. No live RPD/Sheets/VosCast traffic is needed.
+
+FINAL ACTIVATION CHECK (operator, not performed)
+After an authorized deployment/configuration, verify the rule against the app's
+static /about path, using one known public IP, and inspect Firewall events and
+native 429/Retry-After responses. Static HTTP requests do not execute browser
+JavaScript or fetch official RPD upstreams. Check another IP, shared-IP users,
+reset window, and audio exclusion. This is not a request to load-test RPD upstreams.
+
+Phase 3 code can be locally complete while operational rate limiting is pending.
+Do not describe the production app as rate limited until activation is verified.
+
+Official references reviewed:
+https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting
+https://vercel.com/docs/vercel-firewall/vercel-waf/rule-configuration
+https://vercel.com/docs/incremental-static-regeneration/request-collapsing
+https://vercel.com/docs/functions/functions-api-reference/vercel-functions-package#getcache
