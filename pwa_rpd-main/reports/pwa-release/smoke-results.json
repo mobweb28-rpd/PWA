@@ -1,0 +1,187 @@
+{
+  "mockedExternalServices": true,
+  "actualAudioPlaybackTested": false,
+  "liveAdminOperationsTested": false,
+  "browser": "msedge",
+  "upstreamCalls": {
+    "homepage": 1,
+    "about": 1,
+    "podcast": 1,
+    "schedule": 1,
+    "now-playing": 4
+  },
+  "results": [
+    {
+      "name": "HTTP /",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /about",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /program",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /podcast",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /faq",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /hut-rpd",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /admin/login",
+      "status": "passed"
+    },
+    {
+      "name": "HTTP /admin/dashboard",
+      "status": "passed"
+    },
+    {
+      "name": "Production concurrent cold homepage/program reads share refresh work",
+      "status": "passed"
+    },
+    {
+      "name": "API contract /api/homepage",
+      "status": "passed"
+    },
+    {
+      "name": "API contract /api/about",
+      "status": "passed"
+    },
+    {
+      "name": "API contract /api/program",
+      "status": "passed"
+    },
+    {
+      "name": "API contract /api/podcast",
+      "status": "passed"
+    },
+    {
+      "name": "API contract /api/schedule",
+      "status": "passed"
+    },
+    {
+      "name": "API contract /api/now-playing",
+      "status": "passed"
+    },
+    {
+      "name": "Production Data Cache shares homepage/program and avoids warm upstream calls",
+      "status": "passed"
+    },
+    {
+      "name": "A second production server reads the persistent homepage cache",
+      "status": "passed"
+    },
+    {
+      "name": "Stream route returns fixture audio",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/homepage",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/about",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/program",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/podcast",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/schedule",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/now-playing",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/stream",
+      "status": "passed"
+    },
+    {
+      "name": "Reject POST /api/scrape",
+      "status": "passed"
+    },
+    {
+      "name": "Disabled scraper remains 405",
+      "status": "passed"
+    },
+    {
+      "name": "Image optimizer rejects unapproved origins and localhost",
+      "status": "passed"
+    },
+    {
+      "name": "Approved public image origin still renders through Next optimizer",
+      "status": "passed"
+    },
+    {
+      "name": "PWA manifest and local icons",
+      "status": "passed"
+    },
+    {
+      "name": "Browser homepage hydration, chart and radio initialization",
+      "status": "passed"
+    },
+    {
+      "name": "Chatango iframe initializes with isolated origin",
+      "status": "passed"
+    },
+    {
+      "name": "Browser About and member popup",
+      "status": "passed"
+    },
+    {
+      "name": "Browser Program and schedule",
+      "status": "passed"
+    },
+    {
+      "name": "Browser polling pauses hidden, resumes and stops on admin routes",
+      "status": "passed"
+    },
+    {
+      "name": "Browser expires old song information during metadata failures",
+      "status": "passed"
+    },
+    {
+      "name": "Browser podcast catalog and play control",
+      "status": "passed"
+    },
+    {
+      "name": "Podcast survives navigation and hidden page; lock-screen pause/resume and radio exclusivity",
+      "status": "passed"
+    },
+    {
+      "name": "Browser FAQ and navbar navigation",
+      "status": "passed"
+    },
+    {
+      "name": "Admin redirects without authenticated session",
+      "status": "passed"
+    },
+    {
+      "name": "No browser runtime exceptions",
+      "status": "passed"
+    },
+    {
+      "name": "Every external browser request was intercepted",
+      "status": "passed"
+    },
+    {
+      "name": "Real service worker replaces v1 cache and serves offline fallback",
+      "status": "passed"
+    }
+  ]
+}

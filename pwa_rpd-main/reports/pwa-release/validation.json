@@ -1,0 +1,22 @@
+{
+  "unitTests": {
+    "passed": 49,
+    "failed": 0
+  },
+  "typecheck": "passed (standalone and production build)",
+  "lint": "passed",
+  "productionBuild": "passed: next build --webpack",
+  "defaultBuildCommand": "next build --webpack",
+  "hostNode": "26.12.1",
+  "deploymentNodeRequired": "22.x",
+  "browserSmoke": {
+    "browser": "msedge",
+    "passed": 43,
+    "failed": 0
+  },
+  "realServiceWorkerLifecycleTested": true,
+  "mediaPlayback": "Simulated play/pause/seek; no physical device or real background audio certification",
+  "liveRlsVerified": false,
+  "vercelFirewallActivated": false,
+  "deployed": false
+}

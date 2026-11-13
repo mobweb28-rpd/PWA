@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, Pause, Play, Rewind, FastForward } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { startNowPlayingPolling } from "@/lib/now-playing-polling";
+
+import { useAudioPlayer } from "@/components/AudioProvider";
 
 const DIRECT_STREAM_URL = "https://rpd-radio-proxy.mobileweb-rpd.workers.dev/";
 const VOSCAST_PLAYER_IFRAME =
@@ -15,11 +17,9 @@ export default function ListenNowPlayer() {
   const [previousPath, setPreviousPath] = useState(pathname);
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const [playerMode, setPlayerMode] = useState<"stream" | "embed">("stream");
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showFallbackPrompt, setShowFallbackPrompt] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const player = useAudioPlayer();
+  const { isPlaying, currentTime } = player;
+  const duration = Number.isFinite(player.duration) ? player.duration : 0;
   
   // State to hold the dynamic VosCast title
   const [nowPlaying, setNowPlaying] = useState("Memuat info siaran...");
@@ -36,77 +36,11 @@ export default function ListenNowPlayer() {
     return startNowPlayingPolling(setNowPlaying);
   }, [playerVisibleOnRoute]);
 
-  useEffect(() => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio();
-      audioRef.current.preload = "none";
-    }
-
-    const audio = audioRef.current;
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-    const handleError = () => {
-      setIsPlaying(false);
-      setPlayerMode("embed");
-      setShowFallbackPrompt(true);
-    };
-
-    const handleTimeUpdate = () => {
-      try {
-        setCurrentTime(audio.currentTime || 0);
-      } catch {
-        setCurrentTime(0);
-      }
-    };
-
-    const handleLoaded = () => {
-      try {
-        setDuration(audio.duration || 0);
-      } catch {
-        setDuration(0);
-      }
-    };
-
-    audio.addEventListener("play", handlePlay);
-    audio.addEventListener("pause", handlePause);
-    audio.addEventListener("error", handleError);
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    audio.addEventListener("loadedmetadata", handleLoaded);
-
-    return () => {
-      audio.removeEventListener("play", handlePlay);
-      audio.removeEventListener("pause", handlePause);
-      audio.removeEventListener("error", handleError);
-      audio.removeEventListener("timeupdate", handleTimeUpdate);
-      audio.removeEventListener("loadedmetadata", handleLoaded);
-      try {
-        audio.pause();
-        audio.removeAttribute("src");
-        audio.load();
-      } catch {
-        // ignore
-      }
-    };
-  }, []);
-
   const playDirectStream = async () => {
-    if (!audioRef.current) return;
-
-    try {
-      audioRef.current.src = DIRECT_STREAM_URL + `?t=${Date.now()}`;
-      await audioRef.current.play();
-      setPlayerMode("stream");
-      setShowFallbackPrompt(false);
-    } catch {
-      setPlayerMode("embed");
-      setShowFallbackPrompt(true);
-    }
+    await player.play(player.track || { id: "radio-live", url: DIRECT_STREAM_URL, title: nowPlaying, kind: "radio" });
   };
-
-  const seek = (time: number) => {
-    if (!audioRef.current) return;
-    audioRef.current.currentTime = Math.max(0, Math.min((audioRef.current.duration || 0), time));
-  };
+  const seek = player.seek;
+  if (player.track?.kind === "podcast" && playerMode === "embed") setPlayerMode("stream");
 
   const formatTime = (s: number) => {
     if (!isFinite(s) || s <= 0) return "0:00";
@@ -173,6 +107,11 @@ export default function ListenNowPlayer() {
               <div className={`relative shadow-2xl border border-white/20 ${playerMode === "embed" ? "mx-auto max-w-[360px] rounded-[26px] border-white/15 bg-gradient-to-br from-[#7f1524] via-[#a51c31] to-[#c11f39] p-3 md:p-4" : "bg-[#B21E35] rounded-[28px] p-4 md:px-8 md:py-6"}`}>
                 <div className={`flex flex-col ${playerMode === "embed" ? "gap-3" : "gap-4"}`}>
                   
+                  {player.error && <p role="alert" className="text-white text-sm">{player.error}</p>}
+                  {player.error && player.track?.kind === "radio" && playerMode === "stream" && (
+                    <button className="text-white underline" onClick={() => { player.pause(); setPlayerMode("embed"); }}>Gunakan player cadangan</button>
+                  )}
+                  {player.track?.kind === "podcast" && <button className="text-white underline text-sm" onClick={() => { setPlayerMode("stream"); void player.play({ id: "radio-live", url: DIRECT_STREAM_URL, title: nowPlaying, kind: "radio" }); }}>Beralih ke radio live</button>}
                   {playerMode === "stream" ? (
                     <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-6">
                       
@@ -182,8 +121,8 @@ export default function ListenNowPlayer() {
                           <p className="text-white/60 text-[10px] uppercase font-black tracking-widest">Playing Now</p>
                           <div className="relative overflow-hidden w-full group">
                             {/* Changed to truncate for mobile so it fits neatly like Spotify */}
-                            <p className="text-white font-display text-sm md:text-base font-bold leading-tight mt-1 truncate md:line-clamp-2 md:whitespace-normal" title={nowPlaying}>
-                              {nowPlaying}
+                            <p className="text-white font-display text-sm md:text-base font-bold leading-tight mt-1 truncate md:line-clamp-2 md:whitespace-normal" title={player.track?.kind === "podcast" ? player.track.title : nowPlaying}>
+                              {player.track?.kind === "podcast" ? player.track.title : nowPlaying}
                             </p>
                           </div>
                         </div>
@@ -191,7 +130,7 @@ export default function ListenNowPlayer() {
                         {/* MOBILE PLAY BUTTON (Hidden on Desktop) */}
                         <div className="md:hidden flex-shrink-0 flex items-center gap-3">
                           <button
-                            onClick={isPlaying ? () => audioRef.current?.pause() : playDirectStream}
+                            onClick={isPlaying ? () => player.pause() : playDirectStream}
                             className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform active:scale-95"
                             aria-label="Play/Pause"
                           >
@@ -207,15 +146,16 @@ export default function ListenNowPlayer() {
                       {/* === CENTER AREA (Desktop Full Controls, Hidden on Mobile) === */}
                       <div className="hidden md:flex items-center gap-6 justify-center">
                         <button
-                          onClick={() => seek((audioRef.current?.currentTime || 0) - 10)}
+                          onClick={() => seek((currentTime) - 10)}
                           className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-md border border-white/10 hover:bg-black/80 transition-colors"
+                          disabled={player.track?.kind !== "podcast"}
                           aria-label="Rewind 10s"
                         >
                           <Rewind className="w-5 h-5 text-white" />
                         </button>
 
                         <button
-                          onClick={isPlaying ? () => audioRef.current?.pause() : playDirectStream}
+                          onClick={isPlaying ? () => player.pause() : playDirectStream}
                           className="w-20 h-20 rounded-full bg-black flex items-center justify-center shadow-2xl border-2 border-white/10 hover:bg-black/80 transition-colors"
                           aria-label="Play/Pause"
                         >
@@ -227,8 +167,9 @@ export default function ListenNowPlayer() {
                         </button>
 
                         <button
-                          onClick={() => seek((audioRef.current?.currentTime || 0) + 10)}
+                          onClick={() => seek((currentTime) + 10)}
                           className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-md border border-white/10 hover:bg-black/80 transition-colors"
+                          disabled={player.track?.kind !== "podcast"}
                           aria-label="Forward 10s"
                         >
                           <FastForward className="w-5 h-5 text-white" />
@@ -240,6 +181,7 @@ export default function ListenNowPlayer() {
                         <div className="hidden md:block text-white/90 text-sm font-mono">{formatTime(currentTime)}</div>
                         <input
                           type="range"
+                          disabled={player.track?.kind !== "podcast"}
                           min={0}
                           max={Math.max(1, duration)}
                           value={currentTime}
@@ -276,7 +218,7 @@ export default function ListenNowPlayer() {
                           <span className="text-[10px] font-black uppercase tracking-[0.24em]">Backup Player</span>
                         </div>
                         <div className="flex items-center justify-center rounded-full bg-black/20 px-3 py-2 overflow-hidden shadow-inner">
-                          {embedPlayer}
+                          <p className="text-white/80 text-xs">Player cadangan VOSCast aktif.</p>
                         </div>
                       </div>
                     </div>
@@ -289,13 +231,13 @@ export default function ListenNowPlayer() {
         )}
       </AnimatePresence>
 
-      {playerMode === "embed" && !isPlayerOpen ? (
-        <div className="fixed left-0 top-0 -z-10 opacity-0 pointer-events-none" aria-hidden="true">
+      {playerMode === "embed" ? (
+        <div className={`fixed z-[130] bottom-28 left-1/2 -translate-x-1/2 ${isPlayerOpen ? "" : "opacity-0 pointer-events-none"}`} aria-hidden={!isPlayerOpen}>
           {embedPlayer}
         </div>
       ) : null}
 
-      <audio ref={audioRef} className="hidden" />
+
     </>
   );
 }

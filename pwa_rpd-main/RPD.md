@@ -255,12 +255,14 @@ Protected route — requires authenticated Supabase session.
 
 ## Live Radio Stream
 
-**Proxy endpoint**: `GET /api/stream`  
-**Source**: `http://s1.voscast.com:8080/stream`  
-**Format**: `audio/mpeg`  
-**Behavior**: No-cache headers, streams live audio directly to browser.
+**Active player**: persistent root-layout HTML audio shared by radio and podcasts.
+**Live source**: `https://rpd-radio-proxy.mobileweb-rpd.workers.dev/` (Cloudflare)
+which proxies `http://s1.voscast.com:8080/stream` over HTTPS.
 
-Used by the homepage audio player. The `<audio>` element on the home page points to `/api/stream`.
+`GET /api/stream` remains a legacy server proxy; the active player does not use it.
+Podcast catalog/audio URLs remain sourced from the RPD website. Media Session
+provides supported lock-screen controls; see `docs/release-pwa.md` for limitations
+and device acceptance checks.
 
 ---
 

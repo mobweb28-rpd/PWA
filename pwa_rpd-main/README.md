@@ -3,6 +3,12 @@
 Next.js app for the official RPD website. WordPress is the chosen content source.
 The existing Supabase admin CMS and public Storage assets are retained in Phase 1.
 
+## PWA release changes
+
+See `docs/release-pwa.md` for background audio, update behavior, verification,
+and the remaining Vercel/Supabase dashboard actions. Production admin routes are
+closed unless `RPD_ADMIN_ENABLED=true`; enable only after live RLS verification.
+
 ## Local setup
 
 Use a current patched **Node.js 22.x** release and **npm 10 or 11**. The lockfile

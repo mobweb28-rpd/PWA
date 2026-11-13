@@ -21,7 +21,11 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   async headers() {
-    return [{
+    return [
+      { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache, no-store, must-revalidate" }] },
+      { source: "/manifest.json", headers: [{ key: "Cache-Control", value: "no-cache, must-revalidate" }] },
+      { source: "/admin/:path*", headers: [{ key: "Cache-Control", value: "no-store" }, { key: "X-Robots-Tag", value: "noindex, nofollow" }] },
+      {
       source: '/(.*)',
       headers: [
         { key: 'X-Content-Type-Options', value: 'nosniff' },

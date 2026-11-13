@@ -33,7 +33,11 @@
       "purpose": "maskable"
     }
   ],
-  "categories": ["entertainment", "music", "news"],
+  "categories": [
+    "entertainment",
+    "music",
+    "news"
+  ],
   "screenshots": [
     {
       "src": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2000",
@@ -42,5 +46,7 @@
       "form_factor": "wide",
       "label": "Studio Radio PPI Dunia"
     }
-  ]
+  ],
+  "id": "/",
+  "scope": "/"
 }

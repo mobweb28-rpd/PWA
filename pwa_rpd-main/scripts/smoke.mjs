@@ -30,7 +30,7 @@ const child = spawn(process.execPath, [
   '--require', fileURLToPath(new URL('../tests/fixtures/mock-upstream.cjs', import.meta.url)),
   fileURLToPath(new URL('../node_modules/next/dist/bin/next', import.meta.url)),
   'start', '--hostname', '127.0.0.1', '-p', String(port),
-], { cwd: root, env: { ...process.env, RPD_SMOKE_TEST: '1', RPD_FIXTURE_REQUEST_LOG: requestLog, RPD_FIXTURE_DELAY_MS: '50', NEXT_TELEMETRY_DISABLED: '1' }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+], { cwd: root, env: { ...process.env, RPD_SMOKE_TEST: '1', RPD_ADMIN_ENABLED: 'true', RPD_FIXTURE_REQUEST_LOG: requestLog, RPD_FIXTURE_DELAY_MS: '50', NEXT_TELEMETRY_DISABLED: '1' }, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
 let logs = '';
 child.stdout.on('data', (data) => { logs += data; });
 child.stderr.on('data', (data) => { logs += data; });
@@ -103,7 +103,7 @@ try {
     await new Promise(resolve => probe.close(resolve));
     const second = spawn(process.execPath, [...child.spawnargs.slice(1, -1), String(port)], {
       cwd: root, windowsHide: true, stdio: 'ignore',
-      env: { ...process.env, RPD_SMOKE_TEST: '1', RPD_FIXTURE_REQUEST_LOG: requestLog, NEXT_TELEMETRY_DISABLED: '1' },
+      env: { ...process.env, RPD_SMOKE_TEST: '1', RPD_ADMIN_ENABLED: 'true', RPD_FIXTURE_REQUEST_LOG: requestLog, NEXT_TELEMETRY_DISABLED: '1' },
     });
     try {
       const deadline = Date.now() + 30000;
@@ -181,11 +181,16 @@ try {
       return setAttribute.call(this, name, this instanceof HTMLIFrameElement && name.toLowerCase() === 'srcdoc' ? fixtureDoc(value) : value);
     };
     window.__fixtureAudio = [];
+    window.__mediaHandlers = {};
+    Object.defineProperty(navigator, 'mediaSession', { configurable: true, value: {
+      metadata: null, playbackState: 'none', setPositionState() {},
+      setActionHandler(action, handler) { window.__mediaHandlers[action] = handler; },
+    } });
     const OriginalAudio = window.Audio;
     window.Audio = function (...args) { const audio = new OriginalAudio(...args); window.__fixtureAudio.push(audio); return audio; };
     window.Audio.prototype = OriginalAudio.prototype;
-    HTMLMediaElement.prototype.play = function () { window.__fixtureAudio.push(this); this.dispatchEvent(new Event('play')); return Promise.resolve(); };
-    HTMLMediaElement.prototype.pause = function () { this.dispatchEvent(new Event('pause')); };
+    HTMLMediaElement.prototype.play = function () { if (!this.dataset.fixtureLoaded) { this.dataset.fixtureLoaded = 'true'; this.preload = 'metadata'; this.load(); } Object.defineProperty(this, 'paused', { configurable: true, value: false }); window.__fixtureAudio.push(this); this.dispatchEvent(new Event('play')); return Promise.resolve(); };
+    HTMLMediaElement.prototype.pause = function () { Object.defineProperty(this, 'paused', { configurable: true, value: true }); this.dispatchEvent(new Event('pause')); };
   });
   await context.route('**/*', async (route) => {
     const url = new URL(route.request().url());
@@ -302,6 +307,39 @@ try {
     await page.getByRole('button', { name: 'Play podcast', exact: true }).first().click();
     await page.getByRole('button', { name: 'Pause podcast', exact: true }).first().waitFor();
   });
+  await check('Podcast survives navigation and hidden page; lock-screen pause/resume and radio exclusivity', async () => {
+    await page.waitForFunction(() => Number.isFinite(document.querySelector('audio')?.duration) && document.querySelector('audio').duration > 0);
+    await page.evaluate(() => {
+      window.__persistentAudio = document.querySelector('audio');
+      // play/pause are stubbed: model seek state without a running decoder.
+      let position = 0;
+      const audio = window.__persistentAudio;
+      const src = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, 'src');
+      Object.defineProperty(audio, 'currentTime', { configurable: true, get: () => position, set: value => { position = value; } });
+      Object.defineProperty(audio, 'src', { configurable: true, get: () => src.get.call(audio), set: value => { position = 0; src.set.call(audio, value); } });
+      window.__mediaHandlers.seekto({ seekTime: 0.5 });
+    });
+    await page.waitForFunction(() => window.__persistentAudio.currentTime === 0.5);
+    await page.locator('header nav a[href="/program"]').click();
+    await page.waitForURL(base + '/program');
+    await page.evaluate(() => {
+      Object.defineProperty(document, 'hidden', { configurable: true, value: true });
+      document.dispatchEvent(new Event('visibilitychange'));
+    });
+    assert.equal(await page.evaluate(() => document.querySelector('audio') === window.__persistentAudio && !window.__persistentAudio.paused && window.__persistentAudio.src.includes('fixture.wav')), true);
+    assert.equal(await page.evaluate(() => navigator.mediaSession.metadata.title), 'Fixture Podcast');
+    await page.evaluate(() => window.__mediaHandlers.pause());
+    assert.equal(await page.evaluate(() => window.__persistentAudio.paused), true);
+    await page.evaluate(() => window.__mediaHandlers.play());
+    await page.waitForFunction(() => !window.__persistentAudio.paused);
+    await page.waitForFunction(() => window.__persistentAudio.currentTime === 0.5);
+    await page.evaluate(() => { delete document.hidden; document.dispatchEvent(new Event('visibilitychange')); });
+    await page.getByRole('button', { name: 'Listen Now', exact: true }).click();
+    await page.getByRole('button', { name: 'Beralih ke radio live', exact: true }).click();
+    assert.equal(await page.evaluate(() => document.querySelectorAll('audio').length), 1);
+    assert.equal(await page.evaluate(() => window.__persistentAudio.src.includes('workers.dev')), true);
+    assert.equal(await page.evaluate(() => window.__mediaHandlers.seekto), null);
+  });
   await check('Browser FAQ and navbar navigation', async () => {
     await page.goto(base + '/faq');
     await page.getByText('What is Radio PPI Dunia?', { exact: true }).waitFor();
@@ -316,6 +354,30 @@ try {
   await check('No browser runtime exceptions', async () => assert.deepEqual(pageErrors, []));
   await check('Every external browser request was intercepted', async () => {
     assert.deepEqual(externalRequests.filter((request) => !interceptedRequests.has(request)).map((request) => new URL(request.url()).hostname), []);
+  });
+  await check('Real service worker replaces v1 cache and serves offline fallback', async () => {
+    const pwa = await browser.newContext({ serviceWorkers: 'allow' });
+    try {
+      await pwa.route('**/*', route => new URL(route.request().url()).origin === base ? route.continue() : route.abort());
+      const tab = await pwa.newPage();
+      await tab.goto(base + '/offline.html');
+      await tab.evaluate(async () => {
+        await (await caches.open('rpd-mobile-v1')).put('/', new Response('stale homepage'));
+        await caches.open('unrelated-app');
+      });
+      await tab.goto(base);
+      await tab.waitForFunction(() => !!navigator.serviceWorker.controller);
+      const keys = await tab.evaluate(() => caches.keys());
+      assert.ok(keys.includes('rpd-mobile-v2'));
+      assert.ok(keys.includes('unrelated-app'));
+      assert.ok(!keys.includes('rpd-mobile-v1'));
+      await pwa.setOffline(true);
+      await tab.goto(base + '/program');
+      await tab.getByRole('heading', { name: 'Koneksi terputus', exact: true }).waitFor();
+      await pwa.setOffline(false);
+      await tab.goto(base);
+      await tab.getByRole('heading', { name: 'Fixture Announcer - Indonesia', exact: true }).waitFor();
+    } finally { await pwa.close(); }
   });
   await context.close();
 } finally {

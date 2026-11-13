@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
+
+import { useAudioPlayer } from "@/components/AudioProvider";
 
 function formatDuration(totalSeconds: number) {
   if (!Number.isFinite(totalSeconds) || totalSeconds < 0) return "00:00";
@@ -81,15 +83,16 @@ function TrackItem({
 export default function PodcastPage() {
   const [podcasts, setPodcasts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [playingTrack, setPlayingTrack] = useState<string | null>(null);
+  const player = useAudioPlayer();
+  const playingTrack = player.isPlaying && player.track?.kind === "podcast" ? player.track.id : null;
   const [durations, setDurations] = useState<Record<string, string>>({});
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
         const res = await fetch("/api/podcast");
         const data = await res.json();
+        if (!res.ok || !Array.isArray(data)) throw new Error("Podcast unavailable");
         setPodcasts(data);
       } catch (err) {
         console.error("Failed to fetch podcasts:", err);
@@ -107,20 +110,8 @@ export default function PodcastPage() {
       return;
     }
 
-    if (playingTrack === trackId) {
-      setPlayingTrack(null);
-      audioRef.current?.pause();
-      return;
-    }
-
-    setPlayingTrack(trackId);
-    if (audioRef.current) {
-      audioRef.current.src = audioUrl;
-      audioRef.current.play().catch((err) => {
-        console.error("Error playing audio:", err);
-        alert("Gagal memutar audio");
-      });
-    }
+    const track = podcasts.find(item => item.id === trackId);
+    void player.play({ id: trackId, url: audioUrl, title: track?.title || "Podcast RPD", kind: "podcast" });
   };
 
   const siaranSpesial2025 = useMemo(
@@ -206,6 +197,7 @@ export default function PodcastPage() {
         <div className="rounded-[30px] overflow-hidden border-[4px] border-[#C41E3A]" style={{ background: "linear-gradient(135deg, #C41E3A 0%, #B91638 100%)" }}>
           <div className="h-14 rounded-t-[26px]" style={{ background: "linear-gradient(135deg, #f5c6cb 0%, #f8d7da 50%, #e8b4b8 100%)" }} />
 
+          {player.error && <p role="alert" className="px-4 py-3 text-white">{player.error}</p>}
           <div className="max-h-[520px] overflow-y-auto">
             {loading ? (
               <div className="flex items-center justify-center py-16">
@@ -228,15 +220,6 @@ export default function PodcastPage() {
         </div>
       </section>
 
-      <audio
-        ref={audioRef}
-        className="hidden"
-        onEnded={() => setPlayingTrack(null)}
-        onError={() => {
-          setPlayingTrack(null);
-          alert("Error loading audio file");
-        }}
-      />
       
     </div>
   );
