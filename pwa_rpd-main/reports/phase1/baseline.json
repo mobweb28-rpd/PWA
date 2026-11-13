@@ -1,0 +1,633 @@
+{
+  "capturedAt": "2026-10-18T13:07:49.334282+00:00",
+  "git": "No .git repository found; tracking and history unavailable.",
+  "node": "v22.16.0",
+  "npm": "10.9.2",
+  "manifest": {
+    "name": "app",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+      "dev": "next dev --turbopack",
+      "build": "next build",
+      "start": "next start",
+      "lint": "next lint"
+    },
+    "dependencies": {
+      "@babel/parser": "^7.28.5",
+      "@headlessui/react": "^2.2.9",
+      "@heroicons/react": "^2.2.0",
+      "@hookform/resolvers": "^5.1.1",
+      "@libsql/client": "^0.15.15",
+      "@number-flow/react": "^0.5.10",
+      "@radix-ui/react-accordion": "^1.2.11",
+      "@radix-ui/react-alert-dialog": "^1.1.14",
+      "@radix-ui/react-aspect-ratio": "^1.1.7",
+      "@radix-ui/react-avatar": "^1.1.10",
+      "@radix-ui/react-checkbox": "^1.3.2",
+      "@radix-ui/react-collapsible": "^1.1.11",
+      "@radix-ui/react-context-menu": "^2.2.15",
+      "@radix-ui/react-dialog": "^1.1.14",
+      "@radix-ui/react-dropdown-menu": "^2.1.15",
+      "@radix-ui/react-hover-card": "^1.1.14",
+      "@radix-ui/react-label": "^2.1.7",
+      "@radix-ui/react-menubar": "^1.1.15",
+      "@radix-ui/react-navigation-menu": "^1.2.13",
+      "@radix-ui/react-popover": "^1.1.14",
+      "@radix-ui/react-progress": "^1.1.7",
+      "@radix-ui/react-radio-group": "^1.3.7",
+      "@radix-ui/react-scroll-area": "^1.2.9",
+      "@radix-ui/react-select": "^2.2.5",
+      "@radix-ui/react-separator": "^1.1.7",
+      "@radix-ui/react-slider": "^1.3.5",
+      "@radix-ui/react-slot": "^1.2.3",
+      "@radix-ui/react-switch": "^1.2.5",
+      "@radix-ui/react-tabs": "^1.1.12",
+      "@radix-ui/react-toggle": "^1.1.9",
+      "@radix-ui/react-toggle-group": "^1.1.10",
+      "@radix-ui/react-tooltip": "^1.2.7",
+      "@react-three/drei": "^10.4.4",
+      "@react-three/fiber": "^9.0.0-alpha.8",
+      "@supabase/supabase-js": "^2.89.0",
+      "@tabler/icons-react": "^3.35.0",
+      "@tailwindcss/typography": "^0.5.19",
+      "@tsparticles/engine": "^3.8.1",
+      "@tsparticles/react": "^3.0.0",
+      "@tsparticles/slim": "^3.8.1",
+      "atmn": "^0.0.28",
+      "autumn-js": "^0.1.43",
+      "bcrypt": "^6.0.0",
+      "better-auth": "^1.3.17",
+      "cheerio": "^1.2.0",
+      "class-variance-authority": "^0.7.1",
+      "clsx": "^2.1.1",
+      "cmdk": "^1.1.1",
+      "cobe": "^0.6.5",
+      "date-fns": "^4.1.0",
+      "dotted-map": "^2.2.3",
+      "drizzle-kit": "^0.31.10",
+      "drizzle-orm": "^0.45.2",
+      "embla-carousel-auto-scroll": "^8.6.0",
+      "embla-carousel-autoplay": "^8.6.0",
+      "embla-carousel-react": "^8.6.0",
+      "estree-walker": "2.0.2",
+      "framer-motion": "11.15.0",
+      "input-otp": "^1.4.2",
+      "json5": "^2.2.3",
+      "lucide-react": "^0.552.0",
+      "magic-string": "^0.30.21",
+      "mini-svg-data-uri": "^1.4.4",
+      "next": "15.3.6",
+      "next-themes": "^0.4.6",
+      "qss": "^3.0.0",
+      "react": "19.0.0",
+      "react-day-picker": "^9.8.0",
+      "react-dom": "19.0.0",
+      "react-dropzone": "^14.3.8",
+      "react-fast-marquee": "^1.6.5",
+      "react-hook-form": "^7.60.0",
+      "react-icons": "^5.5.0",
+      "react-intersection-observer": "^10.0.0",
+      "react-resizable-panels": "^3.0.3",
+      "react-responsive-masonry": "^2.7.1",
+      "react-syntax-highlighter": "^15.6.1",
+      "react-wrap-balancer": "^1.1.1",
+      "recharts": "^3.0.2",
+      "simplex-noise": "^4.0.3",
+      "sonner": "^2.0.6",
+      "stripe": "^19.2.0",
+      "swiper": "^12.0.3",
+      "tailwind-merge": "^3.3.1",
+      "tailwindcss-animate": "^1.0.7",
+      "three": "^0.178.0",
+      "three-globe": "^2.43.0",
+      "vaul": "^1.1.2",
+      "zod": "^4.1.12"
+    },
+    "devDependencies": {
+      "@eslint/eslintrc": "^3.3.1",
+      "@tailwindcss/postcss": "^4",
+      "@types/node": "^20",
+      "@types/react": "^19",
+      "@types/react-dom": "^19",
+      "@types/react-syntax-highlighter": "^15.5.13",
+      "@types/three": "^0.178.0",
+      "eslint": "^9.38.0",
+      "eslint-config-next": "15.1.0",
+      "tailwindcss": "^4",
+      "tw-animate-css": "^1.4.0",
+      "typescript": "^5"
+    }
+  },
+  "environmentSha256": "847a8f43435d711c8be9271daf045ff5ed52ad041eaee420bf773ac309de926e",
+  "fileHashes": {
+    "src/app/error.tsx": "5caae44c38d78460a64f6ed0b63cad2acdd3c23ccaf76a6104f17a2185bc8d93",
+    "src/app/globals.css": "20e22fe299d1b554f53d6d4a4276faf53f412cf8ec0f41aabda4f628ba895fba",
+    "src/app/icon.svg": "5df4e1c7b702190064b13a14c976c5ff91792802bfab69ce41a1bcff9ce92021",
+    "src/app/layout.tsx": "1a45a152c01123ec96715413e8566bc5aa152701f7a532756095fcd3e97f1390",
+    "src/app/page.tsx": "6f86b0d060fae2f6b8acd981dc78c213d845cee4e70cf969d41f88601a981939",
+    "src/components/ErrorReporter.tsx": "b3274dd0163e6939a510c820dc87e5731f981a3c1a1715dc9779f40c23ad194d",
+    "src/components/GlobalChatBox.tsx": "9ee8a608540cc4ced399b89f7b333fa1d2b55b46ad2a63470e3bc0d3dc9f89d0",
+    "src/components/ListenNowPlayer.tsx": "822041c2fa82a6786712b2e040fee685e7fa1c188c327f993b1d28e175a2969b",
+    "src/components/MediaUploader.tsx": "6b653ee4835e3d3bf01d03fa32754c22363be2abc9ef5ef8e548817cfdc65b36",
+    "src/components/Navbar.tsx": "580a156be559f584106c11ee25e36105c872330d2e4c7e396425daba46d358e5",
+    "src/hooks/use-mobile.ts": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
+    "src/lib/scraper.ts": "dc7b5824752c9307be1f4af91b133a540dd44881816fb917391f27e88b65af8a",
+    "src/lib/supabase.ts": "6c445b537a7ced0ef1401037ee352e9b17c458ff08f77d868d4e34ad3999e8e8",
+    "src/lib/utils.ts": "51bbf14cd1f84f49aab2e0dbee420137015d56b6677bb439e83a908cd292cce1",
+    "src/lib/wp-client.ts": "78a1a9a9b1d85152285f191a1d80e80d83f5968daa2dcd981b230cd949e765d4",
+    "src/visual-edits/component-tagger-loader.js": "fc4f5d0d28f5e893e460c4a3d1a81e80abd0da18005e3d6e357a6705a544ef25",
+    "src/visual-edits/VisualEditsMessenger.tsx": "3b0dde3cce5218df8bd5ede99028b4a562e70f2f201aea4b4195e89e04bf298f",
+    "src/app/about/page.tsx": "d66d4cfc9a730bbcddb0d4f8f65b60266ca5ab3be1c79deacdea006529d70199",
+    "src/app/faq/page.tsx": "84e22c20fc133cf5527082440b1ed13897ef3f78d2d227f01e752fb86b26864b",
+    "src/app/hut-rpd/page.tsx": "afed3c9dfda62f1fc430462825535a2e0f445fed9eebf4a85b20f08a4c8552c1",
+    "src/app/podcast/page.tsx": "c107b11d7216f71329b4e0d078586c7091b622c8c8edd40dffe01e15790cbbd7",
+    "src/app/program/page.tsx": "79841af5bb618eb410490b621bfbed69c74e0965289001bf1366332e28f5bb51",
+    "src/app/admin/dashboard/page.tsx": "445562fdfd048d5c6cf60b6a1fde95e2cf852ac14ad6de9eaa3f80abf8dc8f4e",
+    "src/app/admin/login/page.tsx": "92ef728daf80b34c81f6bdd559f0480f9ededecd3f45483900ca37aa9793bfda",
+    "src/app/api/about/route.ts": "16625a07e17f6a3e1b21e54a48e0d569ab9ebe39e9b25ca00d29a19403d86921",
+    "src/app/api/homepage/route.ts": "1d367999a162a437b5ca9f08fee636a85ab8b70d72eb34820ad8e2a04562341a",
+    "src/app/api/now-playing/route.ts": "8a720b6cb3c8fa90038ee9c8b649f565456e1061c4f6ea8b5e4ddfc023329474",
+    "src/app/api/podcast/route.ts": "e22358e8fc5747689ff974e66b110760ecaa2b24f3a430b3248e1f27d55b50dd",
+    "src/app/api/program/route.ts": "d93f12c0910a695f238842241f7ac48b68054b3aac4446f2c685c846053328ce",
+    "src/app/api/schedule/route.ts": "b5f3464fe458fe66d2d3dff7113dae9b5d08fd425a615a13ce61af5ba9bc8ba6",
+    "src/app/api/scrape/route.ts": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/app/api/stream/route.ts": "b51c36c9a9920a55bfc218c6c2df8d91ce0d713db09ce614e1c23822487dc5fc",
+    "src/components/ui/accordion.tsx": "7251e973cc6896411e3348c1e9cd10bb359934b0e766055c9a3439b07b775edc",
+    "src/components/ui/alert-dialog.tsx": "59967c334f56dd44100e49b1fc18db428e7f15f5a28b9c2c4f9a3b7dcb4db4b7",
+    "src/components/ui/alert.tsx": "49d8311589b810b106aada8ef7b13f70b2b1f68cfce4e1458b7f31a191f420e9",
+    "src/components/ui/aspect-ratio.tsx": "6a75117416aa89200cf31e8d61643b428e812f479caea857c80004b26d893e79",
+    "src/components/ui/avatar.tsx": "e8672934f1c315f36cdae39380454ba8c2da62aca420dfb827d96693091419c4",
+    "src/components/ui/badge.tsx": "f41c11fc13e9a1f1b849349cb51b137ddd27de0a17c5339675c789d58f556cc4",
+    "src/components/ui/breadcrumb.tsx": "22f3f4c13ed1085c4131379bfccc6fb173a474f861636bc2736506820153aa08",
+    "src/components/ui/button-group.tsx": "ccbf09097f5ebf2eec86f1a96cb92e8dd39d251ebb5867394196c8b4fec68a5c",
+    "src/components/ui/button.tsx": "82403231e33fd3d45b111e5e819df194cdfa7cef9a726770185724a60bd20932",
+    "src/components/ui/calendar.tsx": "fe832b1ba33bd42a41cd2b66c7e156f5f421af87f8ceb799eea5db48bab6d294",
+    "src/components/ui/card.tsx": "78cdb63dff3ec7ef074ada630ff20a5d8004768b6cbe24ed134a8bfba12bafbb",
+    "src/components/ui/carousel.tsx": "b7ea0dda3903d972c186f739e23da61f547bc83b5a0bf13b16856577846d5fc3",
+    "src/components/ui/chart.tsx": "670849399b33fecf7e46aa222c52f6a7c294faac079f5227f8c01c594822fd5d",
+    "src/components/ui/checkbox.tsx": "4c395ef15549e46068eb3b32a2a10fb5bfdb01f6834a3c0231a218a529015c83",
+    "src/components/ui/collapsible.tsx": "c2c74dc3e99482d00a57de673b56920860c2ff4b330373d783843f505dc11dae",
+    "src/components/ui/command.tsx": "4fb4f8f95dfbe884ae598661b80e541d62eacdfe2101beab58819ab58b96c2ea",
+    "src/components/ui/context-menu.tsx": "6573f8ed4232ae9801a3098a5cd4549b43a1e0ac1fd2c495e552a862d81fba22",
+    "src/components/ui/dialog.tsx": "491a87bfae8f28773624d353bf56b9288d0852413e814d508e0d086dc7b06edb",
+    "src/components/ui/drawer.tsx": "0c9464ed4f95207ff6ec0b8f433f550388ea0fe57fecd36bbe100b084ee46a3e",
+    "src/components/ui/dropdown-menu.tsx": "9b346378821ba06f9501e4571fd7678cd8819d6833f833daff72bec699565c06",
+    "src/components/ui/empty.tsx": "584b491f9eb69f8041b3d3732a4d139f5af01de19a00b7a97656c7af7a78716a",
+    "src/components/ui/field.tsx": "85da2b11f91b5209995294fe1ee3661137a3fb7f9bdcc0b5dfe06ac86cc932d0",
+    "src/components/ui/form.tsx": "b41b4b10f5e11b2acc1accb7b027eba0581b5cdd549d3ccef92e30d1f4efcf54",
+    "src/components/ui/hover-card.tsx": "031f6a309d87c8e42a2282fccc277dde75e373de8c93dad881582c9dc13e05d0",
+    "src/components/ui/input-group.tsx": "c0df02569e483db8ee86bd51b3b392a1ba62b276604d8c7ea90a9efc5faa9e25",
+    "src/components/ui/input-otp.tsx": "35d561c352fde4e34fc3481839649728300c01cfadac62aa84c375d6d812f4de",
+    "src/components/ui/input.tsx": "6628e8fde207857b9ba08910d386eeea8213d7d745b4e0ae8b95332b52730db9",
+    "src/components/ui/item.tsx": "6d64b756260749245b3a1f292e2aaf2774d7ec0b8bb99403eb8c1be31bd26900",
+    "src/components/ui/kbd.tsx": "886e04c83aaa016dfce924e461aa38aa68a9f5c83bdaedd6209dc358c32a8f22",
+    "src/components/ui/label.tsx": "9ec42c8a57e82311118b794318409ee02b2cebfa49ba6cce8457cff6448cd471",
+    "src/components/ui/menubar.tsx": "d3c5b6060323b78aef1b32650e22d3d951d1b125404f76ffb967ed80446a3ddd",
+    "src/components/ui/navigation-menu.tsx": "d71f57fe0f365541fbf5d00196b0b78a461d8c4f38d35293e5754680d93b9245",
+    "src/components/ui/pagination.tsx": "53ffa0474d07dbfe1fb67f043a0ad7e7d24feecf950e65da8b929a90179c6ad4",
+    "src/components/ui/popover.tsx": "29a217781737bbf5c430859b3de46097a44ada81c4143c2d05543d2167de0ee1",
+    "src/components/ui/progress.tsx": "e7a89220fb49e18d6613956781cfd5eb38d5da36379e93f5fc90ccec127dc871",
+    "src/components/ui/radio-group.tsx": "b12ca5cef859dd75b274337234bae66e413b0f97845243254a1dedcb2d7a7237",
+    "src/components/ui/resizable.tsx": "41043c0f3dec3a41e163fcfbba4ed8138eeafcedd1aa40c007c3e195f34d37df",
+    "src/components/ui/scroll-area.tsx": "1c5d0b242d0513848f4bfa9b57ba7f438d9b1120617029941bfaa137196ecead",
+    "src/components/ui/select.tsx": "8795c9fac7c48d565ff6c47cbf4cca8bfefe25d8cb3d7e7aeba36855739a76ab",
+    "src/components/ui/separator.tsx": "e9dddbd8dbbc0eccd683306481b0f0bbc8e2b60ea97817416ebb9fe7fbbbdca8",
+    "src/components/ui/sheet.tsx": "3d6a560c635fd91094e43191ecf73b124ccb2537e6060f85d5d31fcf68150e74",
+    "src/components/ui/sidebar.tsx": "73561977bb06800b7d7700d844e4219b8dc4d14ac732c7a448e807005286d9f7",
+    "src/components/ui/skeleton.tsx": "f2aea81d8baf2b621945382aabac150e3db40f20d19ac1abea7aff805f1dc33c",
+    "src/components/ui/slider.tsx": "55140ef92c201c82d530dede076603611fbfb2cdc899e4d8459b58f6cbb2b235",
+    "src/components/ui/sonner.tsx": "958d33cd8a85293728acad21c1f3881da56b805bc11a3ec862d6aa355c152d90",
+    "src/components/ui/spinner.tsx": "3e6e6e8d37fb4069f8e43e55318f8db06fbc36e6c8be0096da3c9337c1c798b9",
+    "src/components/ui/switch.tsx": "17f2390d98e8ce4d9e90155eac1918266914d6a9ada7c276b5d1c917cef0e969",
+    "src/components/ui/table.tsx": "7b8c7a952cf49e78aafe5f628c3bd90f7e01bd5602eb5d3650bef5727a8186d7",
+    "src/components/ui/tabs.tsx": "e8469e599381cf021ce751c27cca3d8cb06440a45665ca9c2ef2efb0acef1fd9",
+    "src/components/ui/textarea.tsx": "de4e9fb0fd8e8ed10ea2e475ffe202a922ffe77e3f3edb2c517b0781447ad1b4",
+    "src/components/ui/toggle-group.tsx": "09eebce0dcbac76f860d4b6df5261c4f385f5ba233f88a0cd8dde91b1772abeb",
+    "src/components/ui/toggle.tsx": "b201563ea8cdef3680a3d9bf272cfc5918a5ab6e1079d7ff8d6273df7fce2849",
+    "src/components/ui/tooltip.tsx": "8d8a3645f547334b759341daf94a20b12a8ba17e8de4ad6e4e1c64b38842c1e3",
+    "src/lib/hooks/use-mobile.tsx": "82bff42ff087bd5dc90a5d17609cc428b8688de92d1333073a839af5ad3c9cbd",
+    "supabase/clbk_music_list_setup.sql": "0821d53d266773a1093334f3b48575d98b38822fdcc35b7a9fddd06ff02edf6f",
+    "supabase/cms_admin_access_setup.sql": "fa2a6c16c8685333bfb429239a0e931a5e40e8b25f065150aa33469fb8f2faf9",
+    "package.json": "fda1696aed2beebe598e2974a02122a90248bd0a5ebe6d0a8b1f18de9c5a83e8",
+    "package-lock.json": "13622ecb19120db1f7595084c3efdd0d329062bbd1a008929c864530788bd4bc",
+    "bun.lock": "a940bde27c4904416dbecdd303d9cb5c32fff092b147a8a9330726665299f6f1",
+    "next.config.ts": "6a112a77b93c490269a6225ae308c9ed2d0c52c2a6f072da61471836ac2fb6e7",
+    "eslint.config.mjs": "78c11e4ccf2ffbbcac2ee5f0df5fa67f18a16546e12d97f1203fef1eabd83df4",
+    "tsconfig.json": "1f8bb9b74a79e059dfdae28828984cb6988c1502af1df061a574d8176c516270",
+    ".gitignore": "117e0531a7bd6aa2fa3ef3343d357262b792b0a081a07c41641e05e64b426022",
+    ".orchids/orchids.json": "5504e157eab8db7cd51ad9f98b8e2930406e46c8226a99b3454ac9d49d0be3de",
+    "public/sw.js": "5791eb200ce26e01796d8c42dac71c21ee4651ac60e896026b89262f4abec76a",
+    "public/manifest.json": "53d0ebef53f0d7cf0ba1925452579252dd1e159c43a921657d074c4c23392421"
+  },
+  "installedVersions": {
+    "next": "15.3.6",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "eslint": "9.39.4",
+    "eslint-config-next": "15.1.0",
+    "typescript": "5.9.3",
+    "@supabase/supabase-js": "2.105.4"
+  },
+  "checks": {
+    "typecheck": {
+      "exitCode": 2,
+      "output": ".next/types/app/api/scrape/route.ts(2,24): error TS2306: File 'D:/RPD/pwa_rpd-main/pwa_rpd-main/src/app/api/scrape/route.ts' is not a module.\n.next/types/app/api/scrape/route.ts(5,29): error TS2306: File 'D:/RPD/pwa_rpd-main/pwa_rpd-main/src/app/api/scrape/route.ts' is not a module.\nsrc/app/about/page.tsx(216,33): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.\n  Type 'null' is not assignable to type 'string'.\nsrc/components/ErrorReporter.tsx(14,19): error TS2554: Expected 1 arguments, but got 0.\nsrc/components/ui/chart.tsx(109,3): error TS2339: Property 'payload' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 24 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.\nsrc/components/ui/chart.tsx(114,3): error TS2339: Property 'label' does not exist on type 'Omit<Props<ValueType, NameType>, PropertiesReadFromContext> & { active?: boolean | undefined; allowEscapeViewBox?: AllowInDimension | undefined; ... 24 more ...; wrapperStyle?: CSSProperties | undefined; } & ClassAttributes<...> & HTMLAttributes<...> & { ...; }'.\nsrc/components/ui/chart.tsx(182,23): error TS7006: Parameter 'item' implicitly has an 'any' type.\nsrc/components/ui/chart.tsx(182,29): error TS7006: Parameter 'index' implicitly has an 'any' type.\nsrc/components/ui/chart.tsx(260,39): error TS2344: Type '\"verticalAlign\" | \"payload\"' does not satisfy the constraint '\"string\" | \"path\" | \"href\" | \"origin\" | \"filter\" | \"fill\" | \"values\" | \"d\" | \"k\" | \"r\" | \"x\" | \"y\" | \"z\" | \"id\" | \"style\" | \"children\" | \"className\" | \"onClick\" | \"fontSize\" | \"color\" | ... 430 more ... | \"portal\"'.\n  Type '\"payload\"' is not assignable to type '\"string\" | \"path\" | \"href\" | \"origin\" | \"filter\" | \"fill\" | \"values\" | \"d\" | \"k\" | \"r\" | \"x\" | \"y\" | \"z\" | \"id\" | \"style\" | \"children\" | \"className\" | \"onClick\" | \"fontSize\" | \"color\" | ... 430 more ... | \"portal\"'.\nsrc/components/ui/chart.tsx(266,17): error TS2339: Property 'length' does not exist on type '{}'.\nsrc/components/ui/chart.tsx(278,16): error TS2339: Property 'map' does not exist on type '{}'.\nsrc/components/ui/chart.tsx(278,21): error TS7006: Parameter 'item' implicitly has an 'any' type.\n"
+    },
+    "lint": {
+      "exitCode": 1,
+      "output": "\n> app@0.1.0 lint\n> next lint\n\nCannot serialize key \"parse\" in \"parser\": Function values are not supported.\nnpm notice\nnpm notice New major version of npm available! 10.9.2 -> 12.2.0\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0\nnpm notice To update run: npm install -g npm@12.2.0\nnpm notice\n"
+    },
+    "audit": {
+      "exitCode": 1,
+      "metadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 13,
+          "high": 15,
+          "critical": 2,
+          "total": 30
+        },
+        "dependencies": {
+          "prod": 559,
+          "dev": 302,
+          "optional": 166,
+          "peer": 0,
+          "peerOptional": 0,
+          "total": 980
+        }
+      },
+      "error": null
+    },
+    "build": {
+      "exitCode": 0,
+      "notes": "next build passed; explicitly skipped TypeScript and ESLint validation."
+    }
+  },
+  "dependencyUsage": {
+    "uses": {
+      "framer-motion": [
+        "src/app/about/page.tsx",
+        "src/app/admin/dashboard/page.tsx",
+        "src/app/admin/login/page.tsx",
+        "src/app/faq/page.tsx",
+        "src/app/page.tsx",
+        "src/components/GlobalChatBox.tsx",
+        "src/components/ListenNowPlayer.tsx",
+        "src/components/Navbar.tsx"
+      ],
+      "lucide-react": [
+        "src/app/about/page.tsx",
+        "src/app/admin/dashboard/page.tsx",
+        "src/app/admin/login/page.tsx",
+        "src/app/page.tsx",
+        "src/components/GlobalChatBox.tsx",
+        "src/components/ListenNowPlayer.tsx",
+        "src/components/Navbar.tsx",
+        "src/components/ui/accordion.tsx",
+        "src/components/ui/breadcrumb.tsx",
+        "src/components/ui/calendar.tsx",
+        "src/components/ui/carousel.tsx",
+        "src/components/ui/checkbox.tsx",
+        "src/components/ui/command.tsx",
+        "src/components/ui/context-menu.tsx",
+        "src/components/ui/dialog.tsx",
+        "src/components/ui/dropdown-menu.tsx",
+        "src/components/ui/input-otp.tsx",
+        "src/components/ui/menubar.tsx",
+        "src/components/ui/navigation-menu.tsx",
+        "src/components/ui/pagination.tsx",
+        "src/components/ui/radio-group.tsx",
+        "src/components/ui/resizable.tsx",
+        "src/components/ui/select.tsx",
+        "src/components/ui/sheet.tsx",
+        "src/components/ui/sidebar.tsx",
+        "src/components/ui/spinner.tsx"
+      ],
+      "next": [
+        "src/app/about/page.tsx",
+        "src/app/about/page.tsx",
+        "src/app/admin/dashboard/page.tsx",
+        "src/app/admin/dashboard/page.tsx",
+        "src/app/admin/login/page.tsx",
+        "src/app/admin/login/page.tsx",
+        "src/app/api/about/route.ts",
+        "src/app/api/homepage/route.ts",
+        "src/app/api/now-playing/route.ts",
+        "src/app/api/podcast/route.ts",
+        "src/app/api/program/route.ts",
+        "src/app/api/schedule/route.ts",
+        "src/app/api/stream/route.ts",
+        "src/app/layout.tsx",
+        "src/app/layout.tsx",
+        "src/app/page.tsx",
+        "src/app/page.tsx",
+        "src/app/program/page.tsx",
+        "src/app/program/page.tsx",
+        "src/components/GlobalChatBox.tsx",
+        "src/components/ListenNowPlayer.tsx",
+        "src/components/Navbar.tsx",
+        "src/components/Navbar.tsx",
+        "next.config.ts"
+      ],
+      "react": [
+        "src/app/about/page.tsx",
+        "src/app/admin/dashboard/page.tsx",
+        "src/app/admin/login/page.tsx",
+        "src/app/error.tsx",
+        "src/app/page.tsx",
+        "src/app/podcast/page.tsx",
+        "src/app/program/page.tsx",
+        "src/components/ErrorReporter.tsx",
+        "src/components/GlobalChatBox.tsx",
+        "src/components/ListenNowPlayer.tsx",
+        "src/components/MediaUploader.tsx",
+        "src/components/Navbar.tsx",
+        "src/components/ui/accordion.tsx",
+        "src/components/ui/alert-dialog.tsx",
+        "src/components/ui/alert.tsx",
+        "src/components/ui/avatar.tsx",
+        "src/components/ui/badge.tsx",
+        "src/components/ui/breadcrumb.tsx",
+        "src/components/ui/button.tsx",
+        "src/components/ui/calendar.tsx",
+        "src/components/ui/card.tsx",
+        "src/components/ui/carousel.tsx",
+        "src/components/ui/chart.tsx",
+        "src/components/ui/checkbox.tsx",
+        "src/components/ui/command.tsx",
+        "src/components/ui/context-menu.tsx",
+        "src/components/ui/dialog.tsx",
+        "src/components/ui/drawer.tsx",
+        "src/components/ui/dropdown-menu.tsx",
+        "src/components/ui/field.tsx",
+        "src/components/ui/form.tsx",
+        "src/components/ui/hover-card.tsx",
+        "src/components/ui/input-group.tsx",
+        "src/components/ui/input-otp.tsx",
+        "src/components/ui/input.tsx",
+        "src/components/ui/item.tsx",
+        "src/components/ui/label.tsx",
+        "src/components/ui/menubar.tsx",
+        "src/components/ui/navigation-menu.tsx",
+        "src/components/ui/pagination.tsx",
+        "src/components/ui/popover.tsx",
+        "src/components/ui/progress.tsx",
+        "src/components/ui/radio-group.tsx",
+        "src/components/ui/resizable.tsx",
+        "src/components/ui/scroll-area.tsx",
+        "src/components/ui/select.tsx",
+        "src/components/ui/separator.tsx",
+        "src/components/ui/sheet.tsx",
+        "src/components/ui/sidebar.tsx",
+        "src/components/ui/slider.tsx",
+        "src/components/ui/switch.tsx",
+        "src/components/ui/table.tsx",
+        "src/components/ui/tabs.tsx",
+        "src/components/ui/textarea.tsx",
+        "src/components/ui/toggle-group.tsx",
+        "src/components/ui/toggle.tsx",
+        "src/components/ui/tooltip.tsx",
+        "src/hooks/use-mobile.ts",
+        "src/lib/hooks/use-mobile.tsx",
+        "src/visual-edits/VisualEditsMessenger.tsx"
+      ],
+      "@supabase/supabase-js": [
+        "src/app/admin/dashboard/page.tsx",
+        "src/lib/supabase.ts"
+      ],
+      "cheerio": [
+        "src/app/api/about/route.ts",
+        "src/app/api/homepage/route.ts",
+        "src/app/api/podcast/route.ts",
+        "src/app/api/program/route.ts",
+        "src/lib/scraper.ts"
+      ],
+      "@radix-ui/react-accordion": [
+        "src/components/ui/accordion.tsx"
+      ],
+      "@radix-ui/react-alert-dialog": [
+        "src/components/ui/alert-dialog.tsx"
+      ],
+      "class-variance-authority": [
+        "src/components/ui/alert.tsx",
+        "src/components/ui/badge.tsx",
+        "src/components/ui/button-group.tsx",
+        "src/components/ui/button.tsx",
+        "src/components/ui/empty.tsx",
+        "src/components/ui/field.tsx",
+        "src/components/ui/input-group.tsx",
+        "src/components/ui/item.tsx",
+        "src/components/ui/navigation-menu.tsx",
+        "src/components/ui/sidebar.tsx",
+        "src/components/ui/toggle-group.tsx",
+        "src/components/ui/toggle.tsx"
+      ],
+      "@radix-ui/react-aspect-ratio": [
+        "src/components/ui/aspect-ratio.tsx"
+      ],
+      "@radix-ui/react-avatar": [
+        "src/components/ui/avatar.tsx"
+      ],
+      "@radix-ui/react-slot": [
+        "src/components/ui/badge.tsx",
+        "src/components/ui/breadcrumb.tsx",
+        "src/components/ui/button-group.tsx",
+        "src/components/ui/button.tsx",
+        "src/components/ui/form.tsx",
+        "src/components/ui/item.tsx",
+        "src/components/ui/sidebar.tsx"
+      ],
+      "react-day-picker": [
+        "src/components/ui/calendar.tsx"
+      ],
+      "embla-carousel-react": [
+        "src/components/ui/carousel.tsx"
+      ],
+      "recharts": [
+        "src/components/ui/chart.tsx"
+      ],
+      "@radix-ui/react-checkbox": [
+        "src/components/ui/checkbox.tsx"
+      ],
+      "@radix-ui/react-collapsible": [
+        "src/components/ui/collapsible.tsx"
+      ],
+      "cmdk": [
+        "src/components/ui/command.tsx"
+      ],
+      "@radix-ui/react-context-menu": [
+        "src/components/ui/context-menu.tsx"
+      ],
+      "@radix-ui/react-dialog": [
+        "src/components/ui/dialog.tsx",
+        "src/components/ui/sheet.tsx"
+      ],
+      "vaul": [
+        "src/components/ui/drawer.tsx"
+      ],
+      "@radix-ui/react-dropdown-menu": [
+        "src/components/ui/dropdown-menu.tsx"
+      ],
+      "@radix-ui/react-label": [
+        "src/components/ui/form.tsx",
+        "src/components/ui/label.tsx"
+      ],
+      "react-hook-form": [
+        "src/components/ui/form.tsx"
+      ],
+      "@radix-ui/react-hover-card": [
+        "src/components/ui/hover-card.tsx"
+      ],
+      "input-otp": [
+        "src/components/ui/input-otp.tsx"
+      ],
+      "@radix-ui/react-menubar": [
+        "src/components/ui/menubar.tsx"
+      ],
+      "@radix-ui/react-navigation-menu": [
+        "src/components/ui/navigation-menu.tsx"
+      ],
+      "@radix-ui/react-popover": [
+        "src/components/ui/popover.tsx"
+      ],
+      "@radix-ui/react-progress": [
+        "src/components/ui/progress.tsx"
+      ],
+      "@radix-ui/react-radio-group": [
+        "src/components/ui/radio-group.tsx"
+      ],
+      "react-resizable-panels": [
+        "src/components/ui/resizable.tsx"
+      ],
+      "@radix-ui/react-scroll-area": [
+        "src/components/ui/scroll-area.tsx"
+      ],
+      "@radix-ui/react-select": [
+        "src/components/ui/select.tsx"
+      ],
+      "@radix-ui/react-separator": [
+        "src/components/ui/separator.tsx"
+      ],
+      "@radix-ui/react-slider": [
+        "src/components/ui/slider.tsx"
+      ],
+      "next-themes": [
+        "src/components/ui/sonner.tsx"
+      ],
+      "sonner": [
+        "src/components/ui/sonner.tsx"
+      ],
+      "@radix-ui/react-switch": [
+        "src/components/ui/switch.tsx"
+      ],
+      "@radix-ui/react-tabs": [
+        "src/components/ui/tabs.tsx"
+      ],
+      "@radix-ui/react-toggle-group": [
+        "src/components/ui/toggle-group.tsx"
+      ],
+      "@radix-ui/react-toggle": [
+        "src/components/ui/toggle.tsx"
+      ],
+      "@radix-ui/react-tooltip": [
+        "src/components/ui/tooltip.tsx"
+      ],
+      "clsx": [
+        "src/lib/utils.ts"
+      ],
+      "tailwind-merge": [
+        "src/lib/utils.ts"
+      ],
+      "@babel/parser": [
+        "src/visual-edits/component-tagger-loader.js"
+      ],
+      "magic-string": [
+        "src/visual-edits/component-tagger-loader.js"
+      ],
+      "estree-walker": [
+        "src/visual-edits/component-tagger-loader.js"
+      ],
+      "path": [
+        "src/visual-edits/component-tagger-loader.js"
+      ],
+      "node:path": [
+        "next.config.ts"
+      ],
+      "@eslint/eslintrc": [
+        "eslint.config.mjs"
+      ]
+    },
+    "unreferencedDeclaredRuntime": [
+      "@headlessui/react",
+      "@heroicons/react",
+      "@hookform/resolvers",
+      "@libsql/client",
+      "@number-flow/react",
+      "@react-three/drei",
+      "@react-three/fiber",
+      "@tabler/icons-react",
+      "@tailwindcss/typography",
+      "@tsparticles/engine",
+      "@tsparticles/react",
+      "@tsparticles/slim",
+      "atmn",
+      "autumn-js",
+      "bcrypt",
+      "better-auth",
+      "cobe",
+      "date-fns",
+      "dotted-map",
+      "drizzle-kit",
+      "drizzle-orm",
+      "embla-carousel-auto-scroll",
+      "embla-carousel-autoplay",
+      "json5",
+      "mini-svg-data-uri",
+      "qss",
+      "react-dom",
+      "react-dropzone",
+      "react-fast-marquee",
+      "react-icons",
+      "react-intersection-observer",
+      "react-responsive-masonry",
+      "react-syntax-highlighter",
+      "react-wrap-balancer",
+      "simplex-noise",
+      "stripe",
+      "swiper",
+      "tailwindcss-animate",
+      "three",
+      "three-globe",
+      "zod"
+    ]
+  },
+  "packageManagerDecision": {
+    "selected": "npm",
+    "node": "22.x",
+    "previousBunUse": [
+      "bun.lock",
+      "README starter commands",
+      ".orchids/orchids.json startupCommands: bun install; bun run dev"
+    ],
+    "decision": "Use package-lock.json as the only active lockfile; switch Orchids startup to npm ci and npm run dev. Remove bun.lock after recording its baseline hash.",
+    "pruningEvidence": "All src imports, exports, require and dynamic-import literals were parsed with TypeScript AST; CSS and root build configuration reviewed. Unreferenced packages have no declared runtime/config entry points. Final clean build, type check and regression tests must verify removal."
+  },
+  "frameworkUpgradeDecision": {
+    "firstAttempt": "Next 15.5.28 / React 19.0.9 / aligned Next lint config plus compatible updates",
+    "interimAudit": {
+      "critical": 0,
+      "high": 6,
+      "moderate": 1
+    },
+    "reason": "Next 15.5.28 dependency graph retained a vulnerable pinned PostCSS; the published audit fix moves to Next 16.4.2. Native Next 16 flat lint configuration and React 19.3.1 were validated. ESLint 10 was tested but rejected because the published React/import/a11y plugins declare only ESLint <=9 support (npm ls reported invalid peers). Pin the latest mutually compatible ESLint 9.39.5 and record its upstream EOL warning as an unresolved development-tooling risk.",
+    "migrationScope": [
+      "ESLint CLI/native flat config",
+      "remove obsolete Next config bypasses and editor loader",
+      "type validation",
+      "review async request API use (none present)",
+      "regression test image optimization defaults and browser runtime"
+    ]
+  }
+}

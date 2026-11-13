@@ -1,0 +1,55 @@
+Phase 1 manual actions (NOT executed by Codex)
+
+1. Rotate the handed-over Supabase service-role key in the provider dashboard.
+   It is potentially compromised. Inventory other applications using it first;
+   update their server-side configuration. This PWA does not use it at runtime.
+   Do not place the replacement in NEXT_PUBLIC_* or in this repository.
+   The anon/publishable key is public by design and needs correct RLS, not secrecy.
+   Review provider logs and handover access. Do not paste keys into this report.
+
+2. Verify live RLS with phase1_security_verification.sql. Source SQL is not proof
+   of actual live policies. Export policies, grants, schema and function ownership
+   into a secure administrator-controlled backup before any changes. Confirm
+   admin_users exists and the intended administrator has an active allowlist row.
+   Confirm the trusted SQL administrator owns the helper function, and that
+   rpd_private is not an exposed Data API schema. Do not change schema exposure.
+
+3. Review phase1_security_remediation.sql, then test it on a staging copy first.
+   The script is transactional and repeatable. It adds restrictive write guards
+   so unknown legacy permissive policies cannot allow non-admin CMS mutations.
+   It also allows admins to SELECT inactive items. It changes no content rows,
+   bucket settings, objects, users or credentials. Missing CMS tables are skipped;
+   their completeness remains an administrator responsibility.
+
+4. Test using separate real user tokens in staging: signed out, ordinary user,
+   active allowlisted admin, inactive/revoked admin. Check SELECT/INSERT/UPDATE/
+   DELETE on every CMS table, self-promotion denial, inactive-item reads, and
+   upload/update/delete in cms-images. Test other buckets are unchanged. Inspect
+   grants via PUBLIC and inherited roles as well as the named roles. Service-role
+   bypass is intentional; never use that key for a negative authorization test.
+   Local automated PGlite tests cannot certify production policies, Auth or Storage.
+
+5. Rollback procedure: before COMMIT, use ROLLBACK. After COMMIT, restore only the
+   captured policies/grants/function definitions from the pre-change export in a
+   reviewed transaction on staging, then production if necessary. Never disable
+   RLS or reinstate the unrestricted authenticated-write policy as a quick fix.
+   For an admin access problem first verify the allowlist, user ID and grants.
+   Rolling back application code does not require modifying any database data.
+   Keep this security migration independent from content/seed scripts.
+
+6. Do not run clbk_music_list_setup.sql as a security migration: it deletes and
+   replaces ranking positions 1-10 with sample rows. Its unsafe write policy has
+   been removed locally, but the data-replacement behavior is unchanged.
+
+7. cms-images retains its existing image-only 10 MB specification. The podcast
+   uploader's audio/bucket mismatch is a pre-existing feature issue for a later
+   phase. No bucket or media has been migrated or changed by Phase 1.
+
+8. Admin UI checks remain client-side. Actual database and Storage authorization
+   must be enforced by live RLS. No admin mutation API or service-role backend was
+   added. Until the live policies are verified, admin security remains partial.
+
+9. Verify Vercel uses a current patched Node 22 release and npm, and configure
+   only the public Supabase project values needed by the retained CMS. Provider
+   dashboards, MFA/login abuse controls and credential rotation need an RPD admin.
+   No deployment is authorized by this local implementation task.

@@ -1,0 +1,867 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { Instagram, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+
+// Local Type Definitions
+type Member = {
+  id: string | number;
+  name: string;
+  directorate: string;
+  division?: string;
+  position?: string;
+  role?: string;
+  bio?: string;
+  photo_url?: string;
+  image_url?: string;
+  instagram_url?: string;
+  social_links?: { instagram?: string };
+};
+
+// Directorate configuration matching API mapping
+const directorates = [
+  { key: 'bod', label: 'BOD', icon: 'command' },
+  { key: 'sobat_siar', label: 'Sobat Siar', icon: 'users' },
+  { key: 'operational', label: 'Operational', icon: 'settings', divisions: ['HRD', 'Program', 'Broadcast'] },
+  { key: 'technology', label: 'Technology', icon: 'edit', divisions: ['Mobile & Web Development', 'Technical Division', 'Music Division'] },
+  { key: 'komunikasi', label: 'Komunikasi', icon: 'message', divisions: ['Public Relation', 'Community Relations', 'Research'] },
+  { key: 'marketing', label: 'Marketing', icon: 'trending', divisions: ['Social Media', 'Sales & Partnership'] },
+  { key: 'produksi', label: 'Produksi', icon: 'image', divisions: ['Visual Design', 'Audio', 'Video', 'Event'] },
+];
+
+const fallbackAboutBackgrounds = [
+  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?q=80&w=2000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=2000&auto=format&fit=crop",
+];
+
+// Icon components
+function DirectorateIcon({ type }: { type: string }) {
+  const color = 'white';
+  switch (type) {
+    case 'command':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
+        </svg>
+      );
+    case 'users':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
+      );
+    case 'settings':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m17.07-5.07l-4.24 4.24m-1.66-1.66L7.93 7.93m0 8.14l4.24-4.24m1.66 1.66l4.24 4.24" />
+        </svg>
+      );
+    case 'edit':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+        </svg>
+      );
+    case 'message':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        </svg>
+      );
+    case 'trending':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+          <polyline points="17 6 23 6 23 12" />
+        </svg>
+      );
+    case 'image':
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" className="w-6 h-6">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <circle cx="8.5" cy="8.5" r="1.5" />
+          <polyline points="21 15 16 10 5 21" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+function MemberCard({ member }: { member: Member }) {
+  const photoUrl = member.photo_url || member.image_url || null;
+  const instagramUrl = member.instagram_url || member.social_links?.instagram || null;
+  
+  return (
+    <div className="bg-[#6B1028] rounded-2xl overflow-hidden flex-shrink-0 w-40 h-52 md:w-44 md:h-56">
+      {photoUrl ? (
+        <div className="relative w-full h-full">
+          <Image
+            src={photoUrl}
+            alt={member.name}
+            fill
+            className="object-cover"
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-3">
+            <p className="text-white font-bold text-xs truncate">{member.name}</p>
+            <p className="text-white/70 text-[10px] truncate">{member.position || member.role}</p>
+            {member.bio && <p className="mt-1 text-white/55 text-[10px] line-clamp-2">{member.bio}</p>}
+            {instagramUrl && (
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-[#B21E35] transition-colors"
+                aria-label={`${member.name} Instagram`}
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="w-full h-full flex flex-col items-center justify-center p-3 bg-[#6B1028]">
+          <div className="w-14 h-14 rounded-full bg-[#4A0A1C] flex items-center justify-center mb-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-7 h-7">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <p className="text-white font-bold text-xs text-center">{member.name}</p>
+          <p className="text-white/70 text-[10px] text-center">{member.position || member.role}</p>
+          {member.bio && <p className="mt-2 text-white/55 text-[10px] line-clamp-2 text-center">{member.bio}</p>}
+          {instagramUrl && (
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-[#B21E35] transition-colors"
+              aria-label={`${member.name} Instagram`}
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function AboutPage() {
+  const [members, setMembers] = useState<Member[]>([]);
+  const [activeDirectorate, setActiveDirectorate] = useState<string | null>(null);
+  const [activeDivision, setActiveDivision] = useState<string | null>(null);
+  const [aboutBackgrounds, setAboutBackgrounds] = useState<string[]>([]);
+  const [activeBackgroundIndex, setActiveBackgroundIndex] = useState(0);
+  
+  // Master loading state
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPageData = async () => {
+      try {
+        const response = await fetch('/api/about');
+        const data = await response.json();
+        
+        setMembers(data.members || []);
+        
+        if (data.aboutBackgrounds && data.aboutBackgrounds.length > 0) {
+          setAboutBackgrounds(data.aboutBackgrounds);
+        } else {
+          setAboutBackgrounds(fallbackAboutBackgrounds);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setAboutBackgrounds(fallbackAboutBackgrounds);
+      } finally {
+        // Kill the loading state once the fetch resolves
+        setPageLoading(false);
+      }
+    };
+
+    fetchPageData();
+  }, []);
+
+  useEffect(() => {
+    if (aboutBackgrounds.length <= 1) return;
+    const interval = window.setInterval(() => {
+      setActiveBackgroundIndex((prev) => (prev + 1) % aboutBackgrounds.length);
+    }, 3000);
+    return () => window.clearInterval(interval);
+  }, [aboutBackgrounds.length]);
+
+  const getMembersByDirectorate = (directorate: string) => {
+    return members.filter(m => m.directorate === directorate);
+  };
+
+  const getMembersByDivision = (directorate: string, division: string) => {
+    return members.filter(m => m.directorate === directorate && m.division === division);
+  };
+
+  const activeDir = activeDirectorate ? directorates.find(d => d.key === activeDirectorate) : null;
+  const mobileMembers = activeDir
+    ? activeDir.divisions && activeDivision
+      ? getMembersByDivision(activeDirectorate as string, activeDivision)
+      : getMembersByDirectorate(activeDir.key)
+    : [];
+    
+  // Graceful fallback if index is out of bounds
+  const activeHeroBackground = aboutBackgrounds[activeBackgroundIndex % aboutBackgrounds.length] || null;
+
+  return (
+    <div className="relative min-h-screen bg-black overflow-x-hidden">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Background Layer */}
+        <div className="absolute inset-0 z-0 bg-black">
+          {/* While loading, we hide the images completely so there is no fallback flash. The gradient below acts as the default background. */}
+          {!pageLoading && activeHeroBackground && (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeHeroBackground}
+                initial={{ opacity: 0, scale: 1.04, y: 12 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.02, y: -12 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={activeHeroBackground}
+                  alt="About Us Background"
+                  fill
+                  className="object-cover opacity-60"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#B21E35]/80 via-[#8B0000]/60 to-black/40 pointer-events-none" />
+        </div>
+
+        <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center gap-2"
+          >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight drop-shadow-2xl">
+              Suara Anak Bangsa
+            </h1>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white tracking-tight drop-shadow-2xl">
+              Satu Cinta
+            </h2>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white tracking-tight drop-shadow-2xl">
+              Satu Indonesia
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="mt-12"
+          >
+            <Link href="/join">
+              <Button 
+                size="lg" 
+                className="bg-[#B21E35] hover:bg-[#8B0000] text-white px-12 py-8 rounded-full text-xl font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(178,30,53,0.4)]"
+              >
+                JOIN US
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Second Section: Tentang Radio PPI Dunia */}
+      <section className="relative py-32 px-6 bg-black min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <svg className="absolute top-0 right-0 w-full h-full text-[#B21E35] opacity-60" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <path d="M1000,0 Q800,200 900,400 T1000,800" fill="none" stroke="currentColor" strokeWidth="2" />
+            <path d="M1000,50 Q850,250 950,450 T1000,850" fill="none" stroke="currentColor" strokeWidth="2" />
+            <path d="M1000,100 Q900,300 1000,500" fill="none" stroke="currentColor" strokeWidth="2" />
+          </svg>
+          <svg className="absolute bottom-0 left-0 w-full h-full text-[#B21E35] opacity-60" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+            <path d="M0,1000 Q200,800 100,600 T0,200" fill="none" stroke="currentColor" strokeWidth="2" />
+            <path d="M0,950 Q150,750 50,550 T0,150" fill="none" stroke="currentColor" strokeWidth="2" />
+          </svg>
+          <svg className="absolute inset-0 w-full h-full text-[#B21E35] opacity-40" viewBox="0 0 1440 800" preserveAspectRatio="none">
+            <path d="M-100,600 C200,800 600,200 1540,400" fill="none" stroke="currentColor" strokeWidth="3" />
+            <path d="M-100,650 C200,850 600,250 1540,450" fill="none" stroke="currentColor" strokeWidth="3" />
+          </svg>
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10 w-full">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative bg-white rounded-[40px] md:rounded-[60px] p-8 md:p-16 shadow-[0_40px_100px_rgba(178,30,53,0.2)]"
+          >
+            <div className="absolute -top-6 left-10 md:left-20">
+              <h2 className="text-[#B21E35] text-3xl md:text-5xl font-black italic whitespace-nowrap drop-shadow-[0_2px_0_#fff] paint-order-stroke stroke-white stroke-[8px]">
+                <span className="relative z-10">Tentang Radio PPI Dunia</span>
+                <span className="absolute inset-0 -z-10 text-white translate-y-[2px]" style={{ WebkitTextStroke: '8px white' }}>Tentang Radio PPI Dunia</span>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mt-8">
+              <div className="space-y-10">
+                <div className="flex flex-col items-center lg:items-start gap-6">
+                    <div className="relative w-72 h-40 md:w-80 md:h-44">
+                      <Image
+                        src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/18bad06e-616d-4a15-a836-96eb191d8378/logorpd-1770132929601.png?width=8000&height=8000&resize=contain"
+                        alt="Radio PPI Dunia Logo"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  <p className="text-gray-700 text-lg leading-relaxed font-medium">
+                    Radio PPI Dunia adalah radio online streaming yang digagas oleh Perhimpunan Pelajar Indonesia di seluruh dunia sejak 18 Mei 2009. Peluncuran Radio PPI Dunia ditandai dengan dilakukannya siaran langsung berantai dari Sobat Siar (SS) di Jerman, Mesir, Belanda, Rusia, Korea Selatan, Malaysia, Inggris, dan Australia.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-center space-y-8">
+                <div className="space-y-6">
+                  <p className="text-gray-700 text-lg leading-relaxed">
+                    Saat ini Radio PPI Dunia mengudara 24 jam non-stop yang dimotori oleh Sobat Siar (SS), Sobat Kru (SK), dan Sobat Siar Kru (SSK) yang merupakan pelajar Indonesia yang tersebar di berbagai negara di seluruh dunia.
+                  </p>
+                  <p className="text-gray-700 text-lg leading-relaxed">
+                    Perkembangan jumlah SS, SK, dan SSK yang bergabung dengan Radio PPI Dunia menunjukkan semakin berkembangnya Radio PPI Dunia.
+                  </p>
+                  <p className="text-gray-700 text-lg leading-relaxed font-bold">
+                    Kini terdapat 25 SS, 71 SK, dan 19 SSK Radio PPI Dunia yang menawarkan berbagai informasi edukatif melalui berbagai program siaran.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Third Section: Persebaran Anggota Radio PPI Dunia */}
+      <section className="relative py-20 md:py-32 bg-[#1a1a1a] flex items-center overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <svg className="absolute bottom-0 left-0 w-full h-full text-[#B21E35]" viewBox="0 0 1440 800" preserveAspectRatio="none">
+            <path d="M-50,700 Q100,750 150,650 Q200,550 400,600 Q700,700 1000,500 Q1200,350 1500,400" fill="none" stroke="currentColor" strokeWidth="2.5" opacity="0.7" />
+            <path d="M-50,750 Q100,800 150,700 Q200,600 400,650 Q700,750 1000,550 Q1200,400 1500,450" fill="none" stroke="currentColor" strokeWidth="2.5" opacity="0.7" />
+            <path d="M-50,800 Q100,850 150,750 Q200,650 400,700 Q700,800 1000,600 Q1200,450 1500,500" fill="none" stroke="currentColor" strokeWidth="2.5" opacity="0.7" />
+          </svg>
+          <svg className="absolute bottom-20 left-20 w-32 h-32 text-[#B21E35]" viewBox="0 0 100 100">
+            <ellipse cx="50" cy="50" rx="30" ry="20" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.6" transform="rotate(-30 50 50)" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
+          <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="flex-shrink-0"
+            >
+              <div 
+                className="bg-[#B91638] rounded-r-[30px] py-8 px-8 md:px-12 inline-block"
+                style={{ marginLeft: '-1.5rem' }}
+              >
+                <h2 
+                  className="text-white text-2xl md:text-4xl lg:text-5xl font-black italic leading-tight"
+                  style={{ fontFamily: 'Fredoka, sans-serif' }}
+                >
+                  Persebaran<br />
+                  Anggota Radio<br />
+                  PPI Dunia
+                </h2>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex-1 w-full"
+            >
+              <div className="bg-white rounded-[30px] p-4 md:p-6 shadow-2xl">
+                <div className="relative w-full aspect-[16/10] md:aspect-[16/9]">
+                  <Image
+                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/18bad06e-616d-4a15-a836-96eb191d8378/map-1770130489474.png?width=8000&height=8000&resize=contain"
+                    alt="Persebaran Anggota Radio PPI Dunia"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex justify-end mt-8 md:mt-12"
+          >
+            <Link href="/join">
+              <button 
+                className="bg-[#B91638] hover:bg-[#9a1230] text-white font-black italic text-lg md:text-xl px-8 md:px-12 py-4 rounded-full transition-all hover:scale-105 shadow-lg"
+                style={{ fontFamily: 'Fredoka, sans-serif' }}
+              >
+                Be part of US
+              </button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Fourth Section: Our Team Members */}
+      <section className="relative py-20 md:py-32 bg-[#0f0f0f] overflow-hidden">
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
+          <svg className="w-64 h-96 text-[#B21E35]" viewBox="0 0 200 400">
+            <path d="M200,50 Q100,100 150,200 Q200,300 100,350" fill="none" stroke="currentColor" strokeWidth="2.5" opacity="0.7" />
+            <path d="M200,80 Q120,130 170,230 Q200,330 120,380" fill="none" stroke="currentColor" strokeWidth="2.5" opacity="0.7" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          
+          {/* Mobile layout */}
+          <div className="md:hidden mb-10">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-white text-4xl font-black italic text-center mb-6 leading-none"
+              style={{ fontFamily: 'Fredoka, sans-serif', textShadow: '0 4px 0 #fff' }}
+            >
+              Our Team Members
+            </motion.h2>
+
+            {/* FULL SECTION LOADER FOR MOBILE */}
+            {pageLoading ? (
+              <div className="w-full flex flex-col items-center justify-center min-h-[400px] bg-[#B91638]/10 rounded-[34px] border border-[#B91638]/30">
+                <div className="w-12 h-12 border-4 border-[#B91638]/30 border-t-[#B91638] rounded-full animate-spin mb-4" />
+                <span className="text-white/60 font-bold tracking-widest uppercase text-xs">Memuat Tim...</span>
+              </div>
+            ) : (
+              <div className="flex items-stretch gap-4">
+                <div className="w-[84px] bg-[#B91638] rounded-[34px] py-6 px-0 flex flex-col items-center justify-between min-h-[560px] shadow-2xl">
+                  {directorates.map((dir, index) => (
+                    <div key={dir.key} className="flex flex-col items-center w-full">
+                      <button
+                        onClick={() => {
+                          if (activeDirectorate === dir.key) {
+                            setActiveDirectorate(null);
+                            setActiveDivision(null);
+                          } else {
+                            setActiveDirectorate(dir.key);
+                            setActiveDivision(null);
+                          }
+                        }}
+                        className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                          activeDirectorate === dir.key ? 'bg-white/20 scale-110' : 'hover:bg-white/10'
+                        }`}
+                        title={dir.label}
+                        aria-label={dir.label}
+                      >
+                        <DirectorateIcon type={dir.icon} />
+                      </button>
+                      {index < directorates.length - 1 && (
+                        <div className="w-10 h-[3px] bg-white/30 rounded-full my-5" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex-1 bg-white rounded-[32px] p-4 pt-5 shadow-2xl min-h-[560px]">
+                  <div className="mb-5">
+                    {activeDir?.divisions ? (
+                      <div className="relative">
+                        <select
+                          value={activeDivision || ''}
+                          onChange={(e) => setActiveDivision(e.target.value || null)}
+                          className="w-full appearance-none rounded-full border-4 border-[#B91638] bg-white px-5 py-3 pr-14 text-[#B91638] text-2xl font-black outline-none"
+                          style={{ fontFamily: 'Fredoka, sans-serif' }}
+                        >
+                          <option value="">Division</option>
+                          {activeDir.divisions.map((division) => (
+                            <option key={division} value={division}>
+                              {division}
+                            </option>
+                          ))}
+                        </select>
+                        <svg className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 w-6 h-6 text-[#B91638]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                          <path d="M6 9l6 6 6-6" />
+                        </svg>
+                      </div>
+                    ) : (
+                      <div className="rounded-full border-4 border-[#B91638] bg-white px-5 py-3 text-[#B91638] text-2xl font-black text-center" style={{ fontFamily: 'Fredoka, sans-serif' }}>
+                        {activeDir?.label || 'Directorate'}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-6 max-h-[470px] overflow-y-auto pr-1">
+                    {mobileMembers.length > 0 ? (
+                      mobileMembers.map((member) => (
+                        <div key={member.id} className="rounded-[18px] bg-[#6B1028] overflow-hidden shadow-xl min-h-[260px]">
+                          <div className="relative h-[220px] bg-[#5a0d22]">
+                            <Image
+                              src={member.photo_url || member.image_url || 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop'}
+                              alt={member.name}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="px-4 py-3 bg-white">
+                            <p className="text-[#B91638] font-black text-lg leading-tight truncate" style={{ fontFamily: 'Fredoka, sans-serif' }}>
+                              {member.name}
+                            </p>
+                            <p className="text-[#6f6f6f] text-sm font-semibold truncate">
+                              {member.position || member.role || activeDir?.label || 'Member'}
+                            </p>
+                            {member.bio && (
+                              <p className="mt-2 text-[#6f6f6f] text-xs line-clamp-2">
+                                {member.bio}
+                              </p>
+                            )}
+                            {(member.instagram_url || member.social_links?.instagram) && (
+                              <a
+                                href={member.instagram_url || member.social_links?.instagram || ""}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="mt-3 inline-flex items-center gap-2 text-[#B91638] font-bold text-sm hover:opacity-80"
+                              >
+                                <Instagram className="w-4 h-4" />
+                                Instagram
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="rounded-[18px] bg-[#6B1028] min-h-[260px] flex items-center justify-center text-white/60 font-semibold">
+                        {activeDirectorate ? 'Belum ada anggota' : 'Pilih direktorat'}
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop layout */}
+          <div className="hidden md:block">
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-white text-4xl md:text-6xl font-black italic text-center mb-10"
+              style={{ fontFamily: 'Fredoka, sans-serif' }}
+            >
+              Our Team Members
+            </motion.h2>
+
+            {/* FULL SECTION LOADER FOR DESKTOP */}
+            {pageLoading ? (
+              <div className="w-full flex flex-col items-center justify-center min-h-[400px]">
+                <div className="w-16 h-16 border-4 border-[#B91638]/30 border-t-[#B91638] rounded-full animate-spin mb-4" />
+                <span className="text-white/60 font-bold tracking-widest uppercase text-sm animate-pulse">Memuat Data Tim...</span>
+              </div>
+            ) : (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="flex justify-center mb-8 relative"
+                >
+                  <div className="bg-[#B91638] rounded-full px-6 py-3 flex items-center gap-2 md:gap-4">
+                    {directorates.map((dir, index) => (
+                      <div key={dir.key} className="flex items-center relative">
+                        <button
+                            onClick={() => {
+                              if (activeDirectorate === dir.key) {
+                                setActiveDirectorate(null);
+                                setActiveDivision(null);
+                              } else {
+                                setActiveDirectorate(dir.key);
+                                setActiveDivision(null);
+                              }
+                            }}
+                            className={`p-2 rounded-full transition-all ${
+                              activeDirectorate === dir.key 
+                                ? 'bg-white/20 scale-110' 
+                                : 'hover:bg-white/10'
+                            }`}
+                            title={dir.label}
+                          >
+                          <DirectorateIcon type={dir.icon} />
+                        </button>
+                        {index < directorates.length - 1 && (
+                          <div className="w-px h-6 bg-white/30 mx-1 md:mx-2" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                <AnimatePresence>
+                  {activeDirectorate && activeDir && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                      className="relative"
+                    >
+                      <div 
+                        className="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0"
+                        style={{
+                          borderLeft: '16px solid transparent',
+                          borderRight: '16px solid transparent',
+                          borderBottom: '16px solid #B91638',
+                        }}
+                      />
+                      
+                      <div className="bg-[#B91638] rounded-[30px] p-6 md:p-8 relative">
+                        <button 
+                          onClick={() => setActiveDirectorate(null)}
+                          className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full transition-colors"
+                        >
+                          <X className="w-5 h-5 text-white" />
+                        </button>
+
+                        {activeDir.divisions ? (
+                          <div className="flex flex-wrap gap-0 mb-6">
+                            {activeDir.divisions.map((division, idx) => {
+                              const isActive = activeDivision === division;
+                              const isFirst = idx === 0;
+                              const isLast = idx === activeDir.divisions!.length - 1;
+                              return (
+                                <button 
+                                  key={division}
+                                  onClick={() => setActiveDivision(isActive ? null : division)}
+                                  className={`px-6 py-3 font-bold text-sm transition-all ${
+                                    isActive 
+                                      ? 'bg-white text-[#B91638]' 
+                                      : 'bg-[#6B1028] text-white hover:bg-[#5a0d22]'
+                                  } ${isFirst ? 'rounded-l-xl' : ''} ${isLast ? 'rounded-r-xl' : ''}`}
+                                >
+                                  {division}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="mb-6">
+                            <h3 className="text-white font-bold text-xl">{activeDir.label}</h3>
+                          </div>
+                        )}
+
+                        {activeDir.divisions ? (
+                          <>
+                            {activeDivision ? (
+                              <div className="flex gap-4 overflow-x-auto pb-4" style={{ scrollbarWidth: 'thin' }}>
+                                {getMembersByDivision(activeDirectorate, activeDivision).length > 0 ? (
+                                  getMembersByDivision(activeDirectorate, activeDivision).map((member) => (
+                                    <MemberCard key={member.id} member={member} />
+                                  ))
+                                ) : (
+                                  <div className="w-full text-center py-10">
+                                    <div className="w-16 h-16 rounded-full bg-[#6B1028] flex items-center justify-center mx-auto mb-3">
+                                      <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" className="w-8 h-8 opacity-50">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                        <circle cx="12" cy="7" r="4" />
+                                      </svg>
+                                    </div>
+                                    <p className="text-white/50">Belum ada anggota di {activeDivision}</p>
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <div className="w-full text-center py-10">
+                                <p className="text-white/60">Pilih divisi di atas untuk melihat anggota</p>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="flex gap-4 overflow-x-auto pb-4" style={{ scrollbarWidth: 'thin' }}>
+                            {getMembersByDirectorate(activeDirectorate).length > 0 ? (
+                              getMembersByDirectorate(activeDirectorate).map((member) => (
+                                <MemberCard key={member.id} member={member} />
+                              ))
+                            ) : (
+                              <div className="w-full text-center py-10">
+                                <p className="text-white/50">Belum ada anggota di direktorat ini</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {!activeDirectorate && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-white/40 text-center text-sm mt-4"
+                  >
+                    Click on an icon above to view team members
+                  </motion.p>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white pt-20 pb-10 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 mb-12">
+            <div className="md:col-span-2">
+                <div className="mb-5">
+                  <div className="relative w-56 h-16">
+                    <Image
+                      src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/project-uploads/18bad06e-616d-4a15-a836-96eb191d8378/logorpd-1770132929601.png?width=8000&height=8000&resize=contain"
+                      alt="Radio PPI Dunia Logo"
+                      fill
+                      className="object-contain object-left"
+                    />
+                  </div>
+                </div>
+              <p className="text-gray-500 text-base font-medium leading-relaxed max-w-md">
+                Suara Anak Bangsa, Satu Cinta, Satu Indonesia. 
+                Mengudara 24 jam untuk menghubungkan mahasiswa Indonesia di seluruh dunia.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-black font-black uppercase text-sm tracking-widest mb-5">Navigation</h4>
+              <ul className="space-y-3 text-gray-400 font-bold text-sm">
+                <li><Link href="/" className="hover:text-[#B21E35] transition-colors">Home</Link></li>
+                <li><Link href="/about" className="hover:text-[#B21E35] transition-colors">About Us</Link></li>
+                <li><Link href="/program" className="hover:text-[#B21E35] transition-colors">Program</Link></li>
+                <li><Link href="/podcast" className="hover:text-[#B21E35] transition-colors">Podcast</Link></li>
+                <li><Link href="/faq" className="hover:text-[#B21E35] transition-colors">FAQ</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-black font-black uppercase text-sm tracking-widest mb-5">Support</h4>
+              <ul className="space-y-3 text-gray-400 font-bold text-sm">
+                <li>
+                  <a
+                    href="https://mail.google.com/mail/u/0/?fs=1&to=sales.radioppid@gmail.com&su=PERMOHONAN+PARTNERSHIP&body=Isi+pesan&tf=cm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#B21E35] transition-colors cursor-pointer"
+                  >
+                    Partnership
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://radioppidunia.org/gabung/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#B21E35] transition-colors cursor-pointer"
+                  >
+                    Join Us
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://mail.google.com/mail/u/0/?fs=1&to=publicrelations.rpd@gmail.com&su=PERMOHONAN+MEDIA+PARTNER&body=Isi+pesan&tf=cm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#B21E35] transition-colors cursor-pointer"
+                  >
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col items-start md:items-end">
+              <h4 className="text-black font-black uppercase text-sm tracking-widest mb-5">Social</h4>
+              <div className="flex gap-3">
+                <a
+                  href="https://www.instagram.com/radioppidunia?igsh=NGpkdmJtNmw4b3Yx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  className="w-11 h-11 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#B21E35] hover:bg-[#B21E35] hover:text-white transition-all cursor-pointer group"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-gray-400 group-hover:text-white">
+                    <path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.3 2.4.5.6.2 1 .6 1.4 1.1.4.5.6 1.2.7 2 .1 1.1.1 1.5.1 4.1s0 3-.1 4.1c-.1 1.1-.3 1.9-.7 2.4-.4.5-.8.9-1.4 1.1-.5.2-1.2.4-2.4.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.3-2.4-.5-.6-.2-1-.6-1.4-1.1-.4-.5-.6-1.2-.7-2-.1-1.1-.1-1.5-.1-4.1s0-3 .1-4.1c.1-1.1.3-1.9.7-2.4.4-.5.8-.9 1.4-1.1.5-.2 1.2-.4 2.4-.5C8.4 2.2 8.8 2.2 12 2.2zm0 2.2c-3 0-3.4 0-4.5.1-1.1.1-1.7.2-2.1.4-.5.2-.9.5-1.3 1-.4.4-.7.8-.9 1.3-.2.4-.3 1-.4 2.1C3 10.6 3 11 3 12s0 1.4.1 2.9c.1 1.1.2 1.7.4 2.1.2.5.5.9 1 1.3.4.4.8.7 1.3.9.4.2 1 .3 2.1.4 1.1.1 1.5.1 4.1.1s3 0 4.1-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.5 1.3-1 .4-.4.7-.8.9-1.3.2-.4.3-1 .4-2.1.1-1.1.1-1.5.1-4.1s0-3-.1-4.1c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.5-.9-1-1.3-.4-.4-.8-.7-1.3-.9-.4-.2-1-.3-2.1-.4C15.4 4.4 15 4.4 12 4.4zm0 3.8c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4zm0 1.8c-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2 2.2-1 2.2-2.2-1-2.2-2.2-2.2zm4.8-1.6c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://x.com/_radioppidunia_?s=21"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="X"
+                  className="w-11 h-11 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#B21E35] hover:bg-[#B21E35] hover:text-white transition-all cursor-pointer group"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-gray-400 group-hover:text-white">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.tiktok.com/@radioppidunia?_r=1&_t=ZS-976z1ixMawb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  className="w-11 h-11 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#B21E35] hover:bg-[#B21E35] hover:text-white transition-all cursor-pointer group"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-gray-400 group-hover:text-white">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.youtube.com/@radioppidunia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="YouTube"
+                  className="w-11 h-11 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#B21E35] hover:bg-[#B21E35] hover:text-white transition-all cursor-pointer group"
+                >
+                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-gray-400 group-hover:text-white">
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="pt-6 border-t border-gray-100 text-center">
+            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">
+              © 2026 Radio PPI Dunia. Built with Passion for Indonesia.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

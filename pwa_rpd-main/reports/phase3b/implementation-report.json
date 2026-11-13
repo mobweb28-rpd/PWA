@@ -1,0 +1,273 @@
+{
+  "phase": "3B",
+  "status": "Local code and validation complete; operational distributed rate limiting NOT ACTIVE; no deployment",
+  "filesChanged": {
+    "cacheAndReliability": [
+      "src/lib/upstream-cache.ts",
+      "src/lib/upstream-reliability.ts",
+      "src/lib/public-api-response.ts",
+      "src/lib/public-sources/now-playing.ts",
+      "src/lib/now-playing-polling.ts"
+    ],
+    "publicApiAdapters": [
+      "src/app/api/homepage/route.ts",
+      "src/app/api/program/route.ts",
+      "src/app/api/about/route.ts",
+      "src/app/api/podcast/route.ts",
+      "src/app/api/schedule/route.ts",
+      "src/app/api/now-playing/route.ts"
+    ],
+    "policyAndRunbook": [
+      "config/vercel-firewall-policy.json",
+      "docs/phase3b-operations.txt"
+    ],
+    "testsAndHarness": [
+      "tests/helpers/app-loader.mjs",
+      "tests/helpers/mock-vercel-firewall.mjs",
+      "tests/phase3a.test.mjs",
+      "tests/phase3b.test.mjs",
+      "tests/fixtures/mock-upstream.cjs",
+      "scripts/smoke.mjs"
+    ]
+  },
+  "fileReferences": {
+    "src/lib/upstream-cache.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\lib\\upstream-cache.ts",
+      "line": 1,
+      "sha256": "50a161a8ce9f5582c499f9c8b779cac2ef3241b14058690d891fb6891f5994e9"
+    },
+    "src/lib/upstream-reliability.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\lib\\upstream-reliability.ts",
+      "line": 1,
+      "sha256": "d68b8ca151042ff4465b0fb9a13e5b3d07cf167628fcddea157af3b4d9655a35"
+    },
+    "src/lib/public-api-response.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\lib\\public-api-response.ts",
+      "line": 1,
+      "sha256": "f370151cfb9c8ad6973eadca3a59ae8724e4d37692c3e3493bf1495c37de09b4"
+    },
+    "src/lib/public-sources/now-playing.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\lib\\public-sources\\now-playing.ts",
+      "line": 1,
+      "sha256": "343f716067378f33bd7cae24daaaefb2de559b7ce4068c0beaea12c8227e345c"
+    },
+    "src/lib/now-playing-polling.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\lib\\now-playing-polling.ts",
+      "line": 1,
+      "sha256": "cf5724d9124adfb25a7590165b5f2ffcf9f39acbc68a122405b16b1486377ed0"
+    },
+    "src/app/api/homepage/route.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\app\\api\\homepage\\route.ts",
+      "line": 1,
+      "sha256": "9df9635a4ddb234f36f9db5fa5f352c24f7f8030e8cbb8a5414c469ff1a7d106"
+    },
+    "src/app/api/program/route.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\app\\api\\program\\route.ts",
+      "line": 1,
+      "sha256": "22bdc40020fb28f9323b360882fabb3be9889caf6bd041f211c08fce1fee41f6"
+    },
+    "src/app/api/about/route.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\app\\api\\about\\route.ts",
+      "line": 1,
+      "sha256": "ee08b25c96a0131fc42233a6b2f60809c9c12d284f6b6e6d0a43b81c7e7bf86c"
+    },
+    "src/app/api/podcast/route.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\app\\api\\podcast\\route.ts",
+      "line": 1,
+      "sha256": "fcf916a58ad53d61d831f9ecbf8bd1ef1a6bf68810158862688393cd9083eff3"
+    },
+    "src/app/api/schedule/route.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\app\\api\\schedule\\route.ts",
+      "line": 1,
+      "sha256": "84aabfe47e67404645c42505b31437ccdc688a7a3a6597596b23567639cacd71"
+    },
+    "src/app/api/now-playing/route.ts": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\src\\app\\api\\now-playing\\route.ts",
+      "line": 1,
+      "sha256": "f07405e9b004c8d4226dae9471c68e86ecf3fad29d20922a3f766a30421dbef6"
+    },
+    "config/vercel-firewall-policy.json": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\config\\vercel-firewall-policy.json",
+      "line": 1,
+      "sha256": "1303e17ce2dd9b74ba6978099c6c8c7c62890ad8e896aefb614baeef3e76d4db"
+    },
+    "docs/phase3b-operations.txt": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\docs\\phase3b-operations.txt",
+      "line": 1,
+      "sha256": "29fc2ea83ebb9120b9a3969048f755860eda59b4c23a0c376ea66b460cbc37f1"
+    },
+    "tests/helpers/app-loader.mjs": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\tests\\helpers\\app-loader.mjs",
+      "line": 1,
+      "sha256": "ef47312d14b8b322c4d989effe05e2bbe119db6f676e9cecfac53076bbc77592"
+    },
+    "tests/helpers/mock-vercel-firewall.mjs": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\tests\\helpers\\mock-vercel-firewall.mjs",
+      "line": 1,
+      "sha256": "13c3726bc6f0bb59002043034fc6faa3a327f42538754e5709fa887e57a41f55"
+    },
+    "tests/phase3a.test.mjs": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\tests\\phase3a.test.mjs",
+      "line": 1,
+      "sha256": "39deec8479fc5701f1d888c0ce93349356ea87264ecc0f03dcc666171532e549"
+    },
+    "tests/phase3b.test.mjs": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\tests\\phase3b.test.mjs",
+      "line": 1,
+      "sha256": "914daeaec73a72767d5d51803f9329e97731968a8474d88bff7ef0077a3fdb7e"
+    },
+    "tests/fixtures/mock-upstream.cjs": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\tests\\fixtures\\mock-upstream.cjs",
+      "line": 1,
+      "sha256": "7447f06597c7e9ec4afbee1b5104d3d4d602fb190ee7d8d0136bcc22a715206b"
+    },
+    "scripts/smoke.mjs": {
+      "absolutePath": "D:\\RPD\\pwa_rpd-main\\pwa_rpd-main\\scripts\\smoke.mjs",
+      "line": 1,
+      "sha256": "5fefa7959c07f7f68406e3b131ff35f97c1ab104ff6babbb9985c7d65efd4b69"
+    }
+  },
+  "rateLimiting": {
+    "provider": "Vercel Firewall native WAF",
+    "userConfirmedPlan": "Hobby",
+    "codeEnforcement": false,
+    "dashboardRuleApplied": false,
+    "policyFile": "config/vercel-firewall-policy.json",
+    "instructions": "docs/phase3b-operations.txt",
+    "plannedScope": "GET/HEAD for six read APIs and four relevant public pages; one combined 60-request/60-second fixed window per IP per Vercel region",
+    "sharedIp": "All users/tabs behind one public IP share the budget. About 15 active player tabs may consume the allowance without navigation.",
+    "exclusions": "Audio stream endpoints, external audio providers, admin routes and static assets",
+    "response429": "Native WAF Default (429) after activation only; local tests use a model, not the Vercel service",
+    "nativeRetryAfter": "Not guaranteed by the reviewed documentation; verify actual platform response after activation. Mock Retry-After is fixture behavior only.",
+    "rationale": "Native WAF can protect these paths without a redundant app IP limiter, SDK, Redis, Supabase counters or new paid infrastructure. Hobby only permits one rate-limit rule."
+  },
+  "dashboardActionsRequired": [
+    "Create the named project Firewall rule using the exact path regex and Method conditions in the runbook",
+    "Fixed Window, 60s, 60 requests, counting key IP only, exceeded action Default (429)",
+    "Review existing rules/bypasses and included Hobby usage; do not replace security rules or authorize paid usage automatically",
+    "Authorized operator must Save Rule, Review Changes, Publish, then verify 429/native headers and shared-IP behavior"
+  ],
+  "refreshProtection": {
+    "warmCache": "Existing Next unstable_cache/Data Cache retained and shared where supported by Vercel",
+    "inInstance": "Global transient registry keyed by source coalesces concurrent cold loads, stale background refreshes and half-open recovery probes across route bundles in the same Node process",
+    "acrossInstances": "No atomic distributed lock or circuit breaker. Independent cold instances/regions can duplicate refreshes; the test suite intentionally demonstrates this.",
+    "noUnsupportedClaims": "Native ISR/image request collapsing is not claimed for these dynamic APIs. Metered Runtime Cache without documented atomic locks was not added."
+  },
+  "timeoutsRetries": {
+    "websiteSheetsTotalBudgetMs": 8000,
+    "voscastReadTotalBudgetMs": 3000,
+    "clientMetadataTimeoutMs": 5000,
+    "maxHttpAttempts": 2,
+    "withinOriginalTotalBudget": true,
+    "jitterBackoffMs": "200-299",
+    "retryStatuses": [
+      408,
+      429,
+      500,
+      502,
+      503,
+      504
+    ],
+    "networkErrorsRetried": true,
+    "malformedDataRetried": false,
+    "retryAfter": "Honor seconds or HTTP date up to a five-minute cap; do not sleep past the remaining request budget",
+    "cooldown": "After 3 failed refreshes, 30 seconds. Provider Retry-After opens cooldown immediately for at least 30 seconds, up to 5 minutes. Instance-local, reset on validated success/process restart."
+  },
+  "fallback": {
+    "mechanism": "Validated timestamped snapshots in existing Data Cache; no durable archival storage",
+    "ttlSeconds": {
+      "homepage": 300,
+      "program": 300,
+      "about": 900,
+      "podcast": 900,
+      "schedule": 60,
+      "nowPlaying": 15
+    },
+    "maximumTotalAgeSeconds": {
+      "homepage": 3600,
+      "program": 3600,
+      "about": 86400,
+      "podcast": 86400,
+      "schedule": 300,
+      "nowPlaying": 60
+    },
+    "timestamp": "Only a successful validated refresh sets validatedAt. Cache reads and failures never extend it.",
+    "invalidData": "Cannot replace the good snapshot. Expired good entries may remain internally but are rejected at the API boundary.",
+    "client": "Now-playing origin expiry is sent in X-RPD-Valid-Until. A client deadline/visibility check clears old song information during HTTP or network failures.",
+    "unavailable": "Original generic error shapes/status 500 retained; expired snapshots or open cooldown return 503 plus Retry-After. Now-playing retains its existing HTTP 200 neutral station label contract with expiry 0.",
+    "httpCaching": "Cache-Control no-store avoids browser/CDN response caches extending snapshot lifetime; Next Data Cache remains enabled.",
+    "eviction": "No available cached entry plus upstream outage yields unavailable content. Recovery may need a subsequent request after background revalidation."
+  },
+  "validation": {
+    "targetedPhase3B": {
+      "passed": 25,
+      "failed": 0
+    },
+    "fullRegression": {
+      "command": "npm test",
+      "runs": 1,
+      "passed": 46,
+      "failed": 0,
+      "includes": "All existing Phase 1/3A tests and 25 Phase 3B tests"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "note": "Final production build also checked the latest TypeScript"
+    },
+    "lint": {
+      "command": "npm run lint / prebuild",
+      "exitCode": 0
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "productionSmoke": {
+      "command": "npm run test:smoke",
+      "runs": 1,
+      "passed": 41,
+      "failed": 0,
+      "report": "reports/phase3b/smoke-results.json",
+      "verified": [
+        "40 concurrent cold HTTP homepage/program requests share one mocked upstream load",
+        "Persistent cache reused by a second production server",
+        "Public API shapes and non-cacheable HTTP responses",
+        "One initial schedule request",
+        "Hidden/admin polling behavior",
+        "Browser song expiration while later metadata requests fail",
+        "Existing public UI, auth redirect, images, stream fixture, security checks"
+      ]
+    },
+    "rateLimitCaveat": "Local mock models the dashboard policy and simulated shared/regional counters. Native Vercel enforcement/headers were NOT tested or activated.",
+    "upstreamSafety": "Local mocks/fixtures only; no live upstream requests/load testing. Mock-generated fetch-cache files cleaned by harness."
+  },
+  "preserved": {
+    "supabaseAdminStorage": true,
+    "sourceOfTruth": true,
+    "streamingProvider": true,
+    "serviceWorker": true,
+    "dependencies": true,
+    "unstableCache": true,
+    "environmentUnchanged": true,
+    "deployment": false
+  },
+  "remainingRisks": [
+    "Distributed rate limiting is not active until an operator publishes and verifies the dashboard rule",
+    "Hobby combined-IP threshold may be too restrictive for shared public IPs and is regional, not globally atomic",
+    "Refresh locks/cooldown are process-local; simultaneous misses across instances remain possible",
+    "Data Cache is not a durable LKG archive and may be evicted",
+    "No native Vercel rate-limit/header or cross-region deployment verification was performed"
+  ],
+  "phase3Completion": {
+    "phase3A": "Preserved and passing",
+    "phase3BLocalCode": "Complete and passing",
+    "phase3BOperational": "Pending Vercel WAF activation and verification; strict distributed refresh coordination/durable backup are not implemented"
+  },
+  "references": [
+    "https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting",
+    "https://vercel.com/docs/vercel-firewall/vercel-waf/rule-configuration",
+    "https://vercel.com/docs/incremental-static-regeneration/request-collapsing",
+    "https://vercel.com/docs/functions/functions-api-reference/vercel-functions-package#getcache"
+  ]
+}

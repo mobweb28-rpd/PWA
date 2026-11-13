@@ -1,0 +1,12 @@
+{
+  "command": "npm ci --no-fund --no-audit --fetch-retries=0",
+  "exitCode": 0,
+  "installedPackages": 536,
+  "lifecycleScriptsEnabled": true,
+  "node": "22.16.0",
+  "npm": "10.9.2",
+  "warnings": [
+    "eslint@9.39.5 upstream EOL: latest compatible peer range for current Next lint plugins",
+    "whatwg-encoding@3.1.1 deprecated transitive dependency"
+  ]
+}

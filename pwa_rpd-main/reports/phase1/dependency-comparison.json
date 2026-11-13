@@ -1,0 +1,834 @@
+[
+  {
+    "package": "@babel/parser",
+    "beforeDeclared": "^7.28.5",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@electric-sql/pglite",
+    "beforeDeclared": null,
+    "beforeInstalled": null,
+    "afterDeclared": "^0.5.10",
+    "afterInstalled": "0.5.10",
+    "scope": "development"
+  },
+  {
+    "package": "@eslint/eslintrc",
+    "beforeDeclared": "^3.3.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@headlessui/react",
+    "beforeDeclared": "^2.2.9",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@heroicons/react",
+    "beforeDeclared": "^2.2.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@hookform/resolvers",
+    "beforeDeclared": "^5.1.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@libsql/client",
+    "beforeDeclared": "^0.15.15",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@next/env",
+    "beforeDeclared": null,
+    "beforeInstalled": null,
+    "afterDeclared": "16.4.2",
+    "afterInstalled": "16.4.2",
+    "scope": "development"
+  },
+  {
+    "package": "@number-flow/react",
+    "beforeDeclared": "^0.5.10",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@playwright/test",
+    "beforeDeclared": null,
+    "beforeInstalled": null,
+    "afterDeclared": "1.64.1",
+    "afterInstalled": "1.64.1",
+    "scope": "development"
+  },
+  {
+    "package": "@radix-ui/react-accordion",
+    "beforeDeclared": "^1.2.11",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.11",
+    "afterInstalled": "1.3.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-alert-dialog",
+    "beforeDeclared": "^1.1.14",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.14",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-aspect-ratio",
+    "beforeDeclared": "^1.1.7",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.7",
+    "afterInstalled": "1.2.0",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-avatar",
+    "beforeDeclared": "^1.1.10",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.10",
+    "afterInstalled": "1.3.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-checkbox",
+    "beforeDeclared": "^1.3.2",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.3.2",
+    "afterInstalled": "1.4.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-collapsible",
+    "beforeDeclared": "^1.1.11",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.11",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-context-menu",
+    "beforeDeclared": "^2.2.15",
+    "beforeInstalled": null,
+    "afterDeclared": "^2.2.15",
+    "afterInstalled": "2.4.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-dialog",
+    "beforeDeclared": "^1.1.14",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.14",
+    "afterInstalled": "1.3.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-dropdown-menu",
+    "beforeDeclared": "^2.1.15",
+    "beforeInstalled": null,
+    "afterDeclared": "^2.1.15",
+    "afterInstalled": "2.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-hover-card",
+    "beforeDeclared": "^1.1.14",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.14",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-label",
+    "beforeDeclared": "^2.1.7",
+    "beforeInstalled": null,
+    "afterDeclared": "^2.1.7",
+    "afterInstalled": "2.1.17",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-menubar",
+    "beforeDeclared": "^1.1.15",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.15",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-navigation-menu",
+    "beforeDeclared": "^1.2.13",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.13",
+    "afterInstalled": "1.4.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-popover",
+    "beforeDeclared": "^1.1.14",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.14",
+    "afterInstalled": "1.3.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-progress",
+    "beforeDeclared": "^1.1.7",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.7",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-radio-group",
+    "beforeDeclared": "^1.3.7",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.3.7",
+    "afterInstalled": "1.5.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-scroll-area",
+    "beforeDeclared": "^1.2.9",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.9",
+    "afterInstalled": "1.4.0",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-select",
+    "beforeDeclared": "^2.2.5",
+    "beforeInstalled": null,
+    "afterDeclared": "^2.2.5",
+    "afterInstalled": "2.4.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-separator",
+    "beforeDeclared": "^1.1.7",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.7",
+    "afterInstalled": "1.2.0",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-slider",
+    "beforeDeclared": "^1.3.5",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.3.5",
+    "afterInstalled": "1.6.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-slot",
+    "beforeDeclared": "^1.2.3",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.3",
+    "afterInstalled": "1.5.0",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-switch",
+    "beforeDeclared": "^1.2.5",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.5",
+    "afterInstalled": "1.4.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-tabs",
+    "beforeDeclared": "^1.1.12",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.12",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-toggle",
+    "beforeDeclared": "^1.1.9",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.9",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-toggle-group",
+    "beforeDeclared": "^1.1.10",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.10",
+    "afterInstalled": "1.2.1",
+    "scope": "production"
+  },
+  {
+    "package": "@radix-ui/react-tooltip",
+    "beforeDeclared": "^1.2.7",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.7",
+    "afterInstalled": "1.4.1",
+    "scope": "production"
+  },
+  {
+    "package": "@react-three/drei",
+    "beforeDeclared": "^10.4.4",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@react-three/fiber",
+    "beforeDeclared": "^9.0.0-alpha.8",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@supabase/supabase-js",
+    "beforeDeclared": "^2.89.0",
+    "beforeInstalled": "2.105.4",
+    "afterDeclared": "^2.118.0",
+    "afterInstalled": "2.118.0",
+    "scope": "production"
+  },
+  {
+    "package": "@tabler/icons-react",
+    "beforeDeclared": "^3.35.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@tailwindcss/postcss",
+    "beforeDeclared": "^4",
+    "beforeInstalled": null,
+    "afterDeclared": "^4",
+    "afterInstalled": "4.3.3",
+    "scope": "development"
+  },
+  {
+    "package": "@tailwindcss/typography",
+    "beforeDeclared": "^0.5.19",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@tsparticles/engine",
+    "beforeDeclared": "^3.8.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@tsparticles/react",
+    "beforeDeclared": "^3.0.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@tsparticles/slim",
+    "beforeDeclared": "^3.8.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@types/node",
+    "beforeDeclared": "^20",
+    "beforeInstalled": null,
+    "afterDeclared": "^22.20.5",
+    "afterInstalled": "22.20.5",
+    "scope": "development"
+  },
+  {
+    "package": "@types/react",
+    "beforeDeclared": "^19",
+    "beforeInstalled": null,
+    "afterDeclared": "^19",
+    "afterInstalled": "19.3.0",
+    "scope": "development"
+  },
+  {
+    "package": "@types/react-dom",
+    "beforeDeclared": "^19",
+    "beforeInstalled": null,
+    "afterDeclared": "^19",
+    "afterInstalled": "19.3.0",
+    "scope": "development"
+  },
+  {
+    "package": "@types/react-syntax-highlighter",
+    "beforeDeclared": "^15.5.13",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "@types/three",
+    "beforeDeclared": "^0.178.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "atmn",
+    "beforeDeclared": "^0.0.28",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "autumn-js",
+    "beforeDeclared": "^0.1.43",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "bcrypt",
+    "beforeDeclared": "^6.0.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "better-auth",
+    "beforeDeclared": "^1.3.17",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "cheerio",
+    "beforeDeclared": "^1.2.0",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.2.0",
+    "afterInstalled": "1.2.0",
+    "scope": "production"
+  },
+  {
+    "package": "class-variance-authority",
+    "beforeDeclared": "^0.7.1",
+    "beforeInstalled": null,
+    "afterDeclared": "^0.7.1",
+    "afterInstalled": "0.7.1",
+    "scope": "production"
+  },
+  {
+    "package": "clsx",
+    "beforeDeclared": "^2.1.1",
+    "beforeInstalled": null,
+    "afterDeclared": "^2.1.1",
+    "afterInstalled": "2.1.1",
+    "scope": "production"
+  },
+  {
+    "package": "cmdk",
+    "beforeDeclared": "^1.1.1",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.1",
+    "afterInstalled": "1.1.1",
+    "scope": "production"
+  },
+  {
+    "package": "cobe",
+    "beforeDeclared": "^0.6.5",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "date-fns",
+    "beforeDeclared": "^4.1.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "dotted-map",
+    "beforeDeclared": "^2.2.3",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "drizzle-kit",
+    "beforeDeclared": "^0.31.10",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "drizzle-orm",
+    "beforeDeclared": "^0.45.2",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "embla-carousel-auto-scroll",
+    "beforeDeclared": "^8.6.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "embla-carousel-autoplay",
+    "beforeDeclared": "^8.6.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "embla-carousel-react",
+    "beforeDeclared": "^8.6.0",
+    "beforeInstalled": null,
+    "afterDeclared": "^8.6.0",
+    "afterInstalled": "8.6.0",
+    "scope": "production"
+  },
+  {
+    "package": "eslint",
+    "beforeDeclared": "^9.38.0",
+    "beforeInstalled": "9.39.4",
+    "afterDeclared": "9.39.5",
+    "afterInstalled": "9.39.5",
+    "scope": "development"
+  },
+  {
+    "package": "eslint-config-next",
+    "beforeDeclared": "15.1.0",
+    "beforeInstalled": "15.1.0",
+    "afterDeclared": "16.4.2",
+    "afterInstalled": "16.4.2",
+    "scope": "development"
+  },
+  {
+    "package": "estree-walker",
+    "beforeDeclared": "2.0.2",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "framer-motion",
+    "beforeDeclared": "11.15.0",
+    "beforeInstalled": null,
+    "afterDeclared": "11.15.0",
+    "afterInstalled": "11.15.0",
+    "scope": "production"
+  },
+  {
+    "package": "input-otp",
+    "beforeDeclared": "^1.4.2",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.4.2",
+    "afterInstalled": "1.5.0",
+    "scope": "production"
+  },
+  {
+    "package": "json5",
+    "beforeDeclared": "^2.2.3",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "lucide-react",
+    "beforeDeclared": "^0.552.0",
+    "beforeInstalled": null,
+    "afterDeclared": "^0.552.0",
+    "afterInstalled": "0.552.0",
+    "scope": "production"
+  },
+  {
+    "package": "magic-string",
+    "beforeDeclared": "^0.30.21",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "mini-svg-data-uri",
+    "beforeDeclared": "^1.4.4",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "next",
+    "beforeDeclared": "15.3.6",
+    "beforeInstalled": "15.3.6",
+    "afterDeclared": "16.4.2",
+    "afterInstalled": "16.4.2",
+    "scope": "production"
+  },
+  {
+    "package": "next-themes",
+    "beforeDeclared": "^0.4.6",
+    "beforeInstalled": null,
+    "afterDeclared": "^0.4.6",
+    "afterInstalled": "0.4.6",
+    "scope": "production"
+  },
+  {
+    "package": "qss",
+    "beforeDeclared": "^3.0.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react",
+    "beforeDeclared": "19.0.0",
+    "beforeInstalled": "19.0.0",
+    "afterDeclared": "19.3.1",
+    "afterInstalled": "19.3.1",
+    "scope": "production"
+  },
+  {
+    "package": "react-day-picker",
+    "beforeDeclared": "^9.8.0",
+    "beforeInstalled": null,
+    "afterDeclared": "^9.8.0",
+    "afterInstalled": "9.14.0",
+    "scope": "production"
+  },
+  {
+    "package": "react-dom",
+    "beforeDeclared": "19.0.0",
+    "beforeInstalled": "19.0.0",
+    "afterDeclared": "19.3.1",
+    "afterInstalled": "19.3.1",
+    "scope": "production"
+  },
+  {
+    "package": "react-dropzone",
+    "beforeDeclared": "^14.3.8",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react-fast-marquee",
+    "beforeDeclared": "^1.6.5",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react-hook-form",
+    "beforeDeclared": "^7.60.0",
+    "beforeInstalled": null,
+    "afterDeclared": "^7.60.0",
+    "afterInstalled": "7.90.0",
+    "scope": "production"
+  },
+  {
+    "package": "react-icons",
+    "beforeDeclared": "^5.5.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react-intersection-observer",
+    "beforeDeclared": "^10.0.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react-resizable-panels",
+    "beforeDeclared": "^3.0.3",
+    "beforeInstalled": null,
+    "afterDeclared": "^3.0.3",
+    "afterInstalled": "3.0.6",
+    "scope": "production"
+  },
+  {
+    "package": "react-responsive-masonry",
+    "beforeDeclared": "^2.7.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react-syntax-highlighter",
+    "beforeDeclared": "^15.6.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "react-wrap-balancer",
+    "beforeDeclared": "^1.1.1",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "recharts",
+    "beforeDeclared": "^3.0.2",
+    "beforeInstalled": null,
+    "afterDeclared": "^3.0.2",
+    "afterInstalled": "3.10.1",
+    "scope": "production"
+  },
+  {
+    "package": "simplex-noise",
+    "beforeDeclared": "^4.0.3",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "sonner",
+    "beforeDeclared": "^2.0.6",
+    "beforeInstalled": null,
+    "afterDeclared": "^2.0.6",
+    "afterInstalled": "2.0.8",
+    "scope": "production"
+  },
+  {
+    "package": "stripe",
+    "beforeDeclared": "^19.2.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "swiper",
+    "beforeDeclared": "^12.0.3",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "tailwind-merge",
+    "beforeDeclared": "^3.3.1",
+    "beforeInstalled": null,
+    "afterDeclared": "^3.3.1",
+    "afterInstalled": "3.7.0",
+    "scope": "production"
+  },
+  {
+    "package": "tailwindcss",
+    "beforeDeclared": "^4",
+    "beforeInstalled": null,
+    "afterDeclared": "^4",
+    "afterInstalled": "4.3.3",
+    "scope": "development"
+  },
+  {
+    "package": "tailwindcss-animate",
+    "beforeDeclared": "^1.0.7",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "three",
+    "beforeDeclared": "^0.178.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "three-globe",
+    "beforeDeclared": "^2.43.0",
+    "beforeInstalled": null,
+    "afterDeclared": null,
+    "afterInstalled": null,
+    "scope": "removed"
+  },
+  {
+    "package": "tw-animate-css",
+    "beforeDeclared": "^1.4.0",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.4.0",
+    "afterInstalled": "1.4.0",
+    "scope": "development"
+  },
+  {
+    "package": "typescript",
+    "beforeDeclared": "^5",
+    "beforeInstalled": "5.9.3",
+    "afterDeclared": "^5",
+    "afterInstalled": "5.9.3",
+    "scope": "development"
+  },
+  {
+    "package": "vaul",
+    "beforeDeclared": "^1.1.2",
+    "beforeInstalled": null,
+    "afterDeclared": "^1.1.2",
+    "afterInstalled": "1.1.2",
+    "scope": "production"
+  },
+  {
+    "package": "zod",
+    "beforeDeclared": "^4.1.12",
+    "beforeInstalled": null,
+    "afterDeclared": "^4.1.12",
+    "afterInstalled": "4.6.7",
+    "scope": "production"
+  }
+]

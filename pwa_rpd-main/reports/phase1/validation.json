@@ -1,0 +1,92 @@
+{
+  "node": "v22.16.0",
+  "results": [
+    {
+      "name": "dependency-tree",
+      "exitCode": 0,
+      "durationMs": 2018
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "durationMs": 10099
+    },
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "durationMs": 24072
+    },
+    {
+      "name": "unit-and-local-sql-tests",
+      "exitCode": 0,
+      "durationMs": 6409
+    },
+    {
+      "name": "production-build",
+      "exitCode": 0,
+      "durationMs": 42099
+    },
+    {
+      "name": "dependency-audit",
+      "exitCode": 1,
+      "durationMs": 2791,
+      "auditMetadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 5,
+          "critical": 0,
+          "total": 5
+        },
+        "dependencies": {
+          "prod": 180,
+          "dev": 393,
+          "optional": 87,
+          "peer": 1,
+          "peerOptional": 0,
+          "total": 610
+        }
+      }
+    },
+    {
+      "name": "production-dependency-audit",
+      "exitCode": 0,
+      "durationMs": 2294,
+      "auditMetadata": {
+        "vulnerabilities": {
+          "info": 0,
+          "low": 0,
+          "moderate": 0,
+          "high": 0,
+          "critical": 0,
+          "total": 0
+        },
+        "dependencies": {
+          "prod": 180,
+          "dev": 393,
+          "optional": 87,
+          "peer": 1,
+          "peerOptional": 0,
+          "total": 610
+        }
+      }
+    },
+    {
+      "name": "secret-scan",
+      "exitCode": 0,
+      "durationMs": 2156
+    },
+    {
+      "name": "route-api-browser-smoke",
+      "exitCode": 0,
+      "durationMs": 14751
+    }
+  ],
+  "followUpVerification": {
+    "command": "npm run test:smoke",
+    "exitCode": 0,
+    "checksPassed": 36,
+    "reason": "Added and passed positive image-optimizer coverage; native http(s)/DNS image fetches are also replaced by local test fixtures."
+  }
+}

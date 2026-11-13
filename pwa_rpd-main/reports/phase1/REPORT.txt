@@ -1,0 +1,130 @@
+RPD PWA - Phase 1 report
+18 Oktober 2026 (Asia/Jakarta)
+Project root: D:/RPD/pwa_rpd-main/pwa_rpd-main
+
+A. Changes implemented
+Baseline: reports/phase1/baseline.json records original manifest/core installed versions, source hashes, 12 TS errors, lint serialization failure, 30 audit findings and the bypassed build.
+No Git metadata exists in the provided workspace. Tracked-file status, index removal and repository-history scanning were unavailable. No history was rewritten.
+Local .env.local is retained byte-for-byte; public Storage URLs, streaming infrastructure, live data and production deployments were not migrated or modified.
+- modified: .gitignore - Ignore environment/credential files and local test output; safe examples remain trackable.
+- new: .env.example - Placeholder-only public CMS configuration, optional server metadata identifier; no service-role requirement.
+- new: .nvmrc - Select Node 22.x.
+- new: .node-version - Select Node 22.x for compatible version managers.
+- modified: .orchids/orchids.json - Switch documented Bun startup usage to npm.
+- modified: package.json - Patched compatible runtime packages; explicit Slot dependency; verified unused dependency removal; npm/Node metadata and verification scripts.
+- modified: package-lock.json - Resolve and lock the selected npm dependency tree; clean installation and npm ls pass.
+- deleted: bun.lock - Removed only after documenting its startup use and baseline hash; npm is the sole active manager.
+- modified: next.config.ts - Remove type/lint bypasses and editor loader; restrict image origins; add framing/content-type/referrer/CSP headers; remove X-Powered-By.
+- modified: eslint.config.mjs - Use native Next flat config and direct ESLint CLI; retain import validation and application cycle detection without costly external SCC preprocessing.
+- modified: tsconfig.json - Next 16 mandatory JSX automatic-runtime compatibility (react-jsx).
+- modified: README.md - Current setup, tests, npm/Bun decision, limitations and manual security procedures.
+- modified: RPD.md - Mark handover documentation historical and direct readers to current verified guidance.
+- modified: src/app/error.tsx - Use a generic public failure message instead of exception details.
+- modified: src/app/layout.tsx - Remove remote Orchids scripts and development error/editor instrumentation; retain public assets and PWA registration.
+- modified: src/app/page.tsx - Fix React hook correctness and JSX escaping; synchronize standalone display mode and reset indices with incoming data; preserve UI/content fetches.
+- modified: src/app/about/page.tsx - Use the already-narrowed active directorate key instead of a nullable string.
+- modified: src/app/faq/page.tsx - Escape JSX apostrophe while preserving displayed text.
+- modified: src/app/podcast/page.tsx - Remove redundant synchronous effect-driven clearing of an unused empty-list duration map.
+- modified: src/app/program/page.tsx - Hoist schedule table component and scope asynchronous polling in its effect; preserve CSV source/parser, polling interval and UI.
+- modified: src/app/admin/login/page.tsx - Return a generic login failure message; retain Supabase login/allowlist behavior.
+- modified: src/app/admin/dashboard/page.tsx - Hoist async fetch functions for React correctness; document intentional native image previews. CMS CRUD/auth remain.
+- modified: src/app/api/homepage/route.ts - Validate media URL schemes and remove upstream exception details from public errors.
+- modified: src/app/api/about/route.ts - Validate gallery/member image and Instagram URLs from upstream data.
+- modified: src/app/api/program/route.ts - Validate banner URL schemes without changing scraping/cache behavior.
+- modified: src/app/api/podcast/route.ts - Reject executable/invalid audio URLs and normalize relative WordPress paths.
+- modified: src/app/api/now-playing/route.ts - Allow an optional server-only display-identifier override; retain the existing display default so playback metadata keeps working.
+- modified: src/app/api/scrape/route.ts - Replace invalid empty TypeScript module with explicit disabled GET/405 and OPTIONS/204 behavior.
+- modified: src/components/GlobalChatBox.tsx - Correct route-driven state reset and remove allow-same-origin from the scripted srcdoc sandbox; provider URL/handle/config retained.
+- modified: src/components/ListenNowPlayer.tsx - Correct route-driven state reset; streaming URLs, fallback and polling are unchanged.
+- modified: src/components/MediaUploader.tsx - Document native image-preview performance-rule exception; upload logic, bucket and assets unchanged.
+- modified: src/components/Navbar.tsx - Document native branding-image performance-rule exception; images and navigation unchanged.
+- deleted: src/components/ErrorReporter.tsx - Delete unused development stack/error broadcasting to arbitrary parents.
+- deleted: src/visual-edits/VisualEditsMessenger.tsx - Delete unused visual editor and unauthenticated postMessage handlers.
+- deleted: src/visual-edits/component-tagger-loader.js - Delete the obsolete editor-only source-tagging loader.
+- modified: src/hooks/use-mobile.ts - Use a subscribed viewport snapshot with hydration-safe server fallback.
+- modified: src/lib/hooks/use-mobile.tsx - Re-export the shared mobile hook instead of duplicating the effect-driven implementation.
+- modified: src/lib/wp-client.ts - Name the default export for lint correctness; unused helper endpoints/architecture unchanged.
+- new: src/lib/public-url.ts - Reusable HTTP(S)-only URL validation rejecting executable schemes and embedded credentials.
+- modified: src/components/ui/carousel.tsx - Subscribe to Embla scroll state; clean up select/reInit listeners instead of synchronously setting state in an effect.
+- modified: src/components/ui/chart.tsx - Use Recharts content props and valid React keys, fixing underlying Tooltip/Legend typing.
+- modified: src/components/ui/sidebar.tsx - Use a type-only import and deterministic per-instance skeleton width for render/hydration correctness.
+- modified: supabase/clbk_music_list_setup.sql - Remove unrestricted authenticated-write policy creation. Existing sample-row replacement is unchanged and must not be used as a migration.
+- modified: supabase/cms_admin_access_setup.sql - Replace nonexistent bucket helper with guarded standard bucket INSERT; no execution performed.
+- new: supabase/phase1_security_remediation.sql - Prepared transactional/idempotent RLS/grant hardening; tested only in in-memory PostgreSQL. No live changes.
+- new: supabase/phase1_security_verification.sql - Prepared read-only live catalog verification queries.
+- new: supabase/PHASE1-MANUAL-ACTIONS.txt - Credential rotation, policy review, staging verification and safe rollback procedure.
+- new: scripts/check-env.mjs - Validate required public CMS configuration and reject privileged NEXT_PUBLIC_* inputs without printing values.
+- new: scripts/check-secrets.mjs - Compare private configuration values to source/build/report files; verify original local env hash without exposing values.
+- new: scripts/verify.mjs - Run all checks, save results and preserve nonzero status for every failure, including development audit findings.
+- new: scripts/smoke.mjs - Production HTTP/API/browser regression checks with mocked upstreams/media/widget and blocked external Auth.
+- new: tests/public-url.test.mjs - Security tests for executable schemes, credentials and relative media URLs.
+- new: tests/api-security.test.mjs - Test real route source against injected upstream errors and executable member/audio URLs.
+- new: tests/rls.test.mjs - Execute proposed RLS twice in memory; test anonymous/non-admin/revoked/admin CRUD, inherited grants, self-promotion and bucket moves.
+- new: tests/fixtures/upstream.cjs - Synthetic content/audio plus existing local icon; no live user/database records.
+- new: tests/fixtures/mock-upstream.cjs - Isolate server fetch and native image/DNS requests inside smoke-test child process only.
+- Generated verification artifacts: every reports/phase1/*.json plus this report. next-env.d.ts and .next are generated Next artifacts, not manually edited application source.
+
+B. Dependency comparison
+- next: 15.3.6 -> 16.4.2
+- react: 19.0.0 -> 19.3.1
+- react-dom: 19.0.0 -> 19.3.1
+- eslint: 9.39.4 -> 9.39.5
+- eslint-config-next: 15.1.0 -> 16.4.2
+- typescript: 5.9.3 -> 5.9.3
+- @supabase/supabase-js: 2.105.4 -> 2.118.0
+- Intended runtime: a current patched Node 22.x. Actual local verification used Node 22.16.0 and npm 10.9.2 via the existing Unity-bundled Node runtime; no global Node installation was changed.
+- npm is the sole package manager. Bun startup usage/hash was documented before removing bun.lock. No --force or --legacy-peer-deps is required by the final dependency tree.
+- 42 direct dependencies were removed after AST import/export/require/dynamic-import, CSS and build-configuration review. Clean install, full typecheck/build, dependency tree and regression checks passed after removal. Details: dependency-removals.json and dependency-comparison.json.
+- Native flat ESLint repaired configuration serialization. ESLint 10 was not kept because published React/import/a11y peers exclude it; npm ls would mark that tree invalid. Final compatible ESLint 9.39.5 is EOL and remains a documented tooling risk.
+- See https://nextjs.org/docs/app/guides/upgrading/version-16 and https://eslint.org/version-support/.
+
+C. Security findings
+FIXED LOCALLY: secret-file ignore rules/example config; rejection of privileged public env inputs; removal of external Orchids scripts/editor/error broadcasters; patched production dependencies; TypeScript and lint/build bypass removal; constrained image origins; HTTP(S) URL checks; generic upstream/login/public errors; security headers; srcdoc origin privilege reduction.
+PARTIALLY FIXED: unsafe SQL policy is removed from local setup and a tested restrictive-policy remediation is prepared. Actual live RLS remains unknown. Admin UI remains client-side, with authorization dependent on database/Storage RLS. CSP hardens framing/object/base handling but is not a complete script-src policy.
+REQUIRES MANUAL ACTION: rotate the handed-over service-role credential; review/export/stage/apply/verify RLS and grants with an administrator; confirm real Chatango login/cookie compatibility under the stricter sandbox; use a current patched Node 22 runtime.
+DEFERRED: caching/rate limiting, CSV parsing bug, duplicate schedule fetch, metadata polling, audio upload/bucket mismatch, CMS decommissioning, media migration, PWA update/icon issues, missing /join CTA route and other existing feature repairs. No Phase 3/4 work was implemented.
+Hardcoded VosCast display identifier is retained as a behavior-compatible fallback with an optional server-only override. No administrator credential was added to application code. Its provider permissions/rotation, if necessary, require the RPD account administrator.
+
+D. Actual validation results
+- Clean npm ci: exit 0, lifecycle scripts enabled; 536 installed packages. Logs include upstream deprecation warnings (ESLint/whatwg-encoding), not hidden peer errors.
+- npm ls --all: exit 0; no invalid dependency peer tree.
+- TypeScript: exit 0 (originally 12 errors).
+- ESLint: exit 0, zero reported errors/warnings with --max-warnings=0. File-local native-image performance-rule exceptions are documented; correctness rules remain enabled.
+- Unit/security tests: 6 passed, zero failures/skips. SQL runs only in-memory PGlite and was executed twice to verify idempotency.
+- Production build: exit 0; Next.js actually ran TypeScript; npm prebuild actually ran environment checks and lint.
+- npm audit: exit 1, 5 high development-only findings, 0 critical/moderate/low.
+- npm audit --omit=dev: exit 0, 0 vulnerabilities.
+- Secret scan: zero matches for the supplied private service-role value; original environment file hash unchanged. See secret-scan.json for exact file count.
+- Production route/API/browser smoke tests: 36 passed with Chromium 156.0.8078.4; HTTP routes, JSON contracts, method restrictions, positive/negative image optimization, manifest/icons, hydration, members, schedule, podcast controls, radio initialization, metadata, navbar, mock chat isolation, unauthenticated admin redirect and browser exceptions covered.
+- The final aggregate verify command intentionally exits 1 solely because the full dependency audit still fails. It executes all remaining checks instead of hiding that failure. The added image test was also rerun successfully after the aggregate run; see followUpVerification in validation.json.
+- External resources use synthetic fixtures; native Next image http(s)/DNS and opaque chat widget bootstrap are explicitly isolated. Audio play is stubbed. Real uninterrupted streaming, Chatango accounts, live asset health, actual admin login/CRUD/RLS, service-worker lifecycle and physical Android/iOS are NOT verified. No claim of passing those tests is made.
+- Test runner on the available Node 22.16 emits experimental type-stripping/module-format warnings; these are distinct from lint errors.
+
+E. Remaining vulnerabilities
+- HIGH | @next/eslint-plugin-next 16.4.2 | development only | Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override.
+- HIGH | braces 3.0.3 | development only | Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override.
+- HIGH | eslint-config-next 16.4.2 | development only | Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override.
+- HIGH | fast-glob 3.3.1 | development only | Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override.
+- HIGH | micromatch 4.0.8 | development only | Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override.
+- These are five affected entries in one dependency chain: eslint-config-next -> @next/eslint-plugin-next -> fast-glob -> micromatch -> braces. The latest published braces remains 3.0.3 with no patched release. Input is developer lint glob configuration, not a public application API parameter. The finding remains visible and failing.
+- Advisory: https://github.com/advisories/GHSA-vfj7-8cjw-p6xm
+- ESLint 9 EOL is an additional maintenance issue, not an extra npm vulnerability count.
+
+F. External/manual actions
+1. An administrator must rotate/revoke the handed-over service-role credential after inventorying other consumers. This PWA does not require a replacement administrator key. Do not copy it into NEXT_PUBLIC_* or this report.
+2. Review supabase/PHASE1-MANUAL-ACTIONS.txt. Run the read-only verification only with appropriate administrator access, export schema/policies/grants, then stage the prepared remediation before any production application.
+3. Verify separate signed-out, ordinary, active-admin and revoked-admin identities, inactive reads, every write operation, self-promotion denial and Storage permissions. Never test denial using a service-role key because it bypasses RLS.
+4. Rollback database changes only using a reviewed pre-change export in a transaction; use ROLLBACK before COMMIT. Never disable RLS or reintroduce unrestricted authenticated writes as a quick workaround. No live migration has been applied by this work.
+5. Configure a current patched Node 22 runtime and public CMS values when deployment is separately authorized. No Vercel settings or deployment were changed.
+
+G. Regression risks and rollback
+- Next 16/React 19 updates require real device and provider checks despite passing local fixtures. Browser minimums and image-optimizer behavior follow the selected framework version.
+- Custom image domains entered later into the retained CMS require explicit review/allowlisting. Current homepage/team media hosts were checked once via public GET and use radioppidunia.org; existing Supabase and Unsplash hosts are retained.
+- Removing allow-same-origin deliberately denies parent DOM/storage privileges to the scripted chat iframe. Provider URLs/handle are unchanged, but real login/cookie/pop-up compatibility must be checked before release.
+- Development editor tooling was removed after references were eliminated. Public images, SW, manifest, stream proxy/infrastructure and CMS client remain; no live data was deleted.
+- There is no Git repository here. Baseline hashes are evidence, not a recoverable source backup. Code rollback requires the original handover/source copy; initialize version control and make a reviewed baseline before future phases. Restoring code does not require any live database/data rollback.
+- Preserve and review native-image exceptions for the retained legacy previews; no blanket ESLint disable was introduced.
+
+H. Phase 1 readiness assessment
+Authorized local implementation and functional verification are complete with explicit residuals. The complete security gate is NOT green: development audit findings/EOL tooling and external credential/RLS/provider checks remain.
+Phase 3 can be developed locally against mocks after these residuals are reviewed; no deployment should proceed until manual security actions and real provider/device checks are resolved. Phase 3 and Phase 4 have not begun. A passing build is not a production-readiness certificate.

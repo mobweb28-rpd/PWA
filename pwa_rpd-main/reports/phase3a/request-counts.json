@@ -1,0 +1,26 @@
+{
+  "scenario": "Two sequential passes over all six APIs within TTL; mocked upstreams",
+  "baselineMethod": "Replay with cache backend disabled to reproduce previous uncached request behavior",
+  "cacheMethod": "Installed Next unstable_cache with a deterministic mock storage backend",
+  "before": {
+    "homepage": 4,
+    "about": 2,
+    "podcast": 2,
+    "schedule": 2,
+    "now-playing": 4
+  },
+  "after": {
+    "homepage": 1,
+    "about": 1,
+    "podcast": 1,
+    "schedule": 1,
+    "now-playing": 2
+  },
+  "beforeTotal": 14,
+  "afterTotal": 6,
+  "programInitialScheduleRequests": {
+    "before": 2,
+    "after": 1,
+    "afterVerifiedBy": "Production browser smoke test"
+  }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "package": "@next/eslint-plugin-next",
+    "severity": "high",
+    "versions": [
+      "16.4.2"
+    ],
+    "production": false,
+    "cause": "Unpatched braces <=3.0.3 stack exhaustion through Next ESLint glob dependency chain",
+    "action": "Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override."
+  },
+  {
+    "package": "braces",
+    "severity": "high",
+    "versions": [
+      "3.0.3"
+    ],
+    "production": false,
+    "cause": "Unpatched braces <=3.0.3 stack exhaustion through Next ESLint glob dependency chain",
+    "action": "Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override."
+  },
+  {
+    "package": "eslint-config-next",
+    "severity": "high",
+    "versions": [
+      "16.4.2"
+    ],
+    "production": false,
+    "cause": "Unpatched braces <=3.0.3 stack exhaustion through Next ESLint glob dependency chain",
+    "action": "Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override."
+  },
+  {
+    "package": "fast-glob",
+    "severity": "high",
+    "versions": [
+      "3.3.1"
+    ],
+    "production": false,
+    "cause": "Unpatched braces <=3.0.3 stack exhaustion through Next ESLint glob dependency chain",
+    "action": "Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override."
+  },
+  {
+    "package": "micromatch",
+    "severity": "high",
+    "versions": [
+      "4.0.8"
+    ],
+    "production": false,
+    "cause": "Unpatched braces <=3.0.3 stack exhaustion through Next ESLint glob dependency chain",
+    "action": "Track GHSA-vfj7-8cjw-p6xm and update compatible upstream lint packages when fixed. Do not downgrade Next lint config to 14.x or force an incompatible override."
+  }
+]

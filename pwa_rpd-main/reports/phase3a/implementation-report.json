@@ -1,0 +1,146 @@
+{
+  "phase": "3A",
+  "status": "implemented and locally validated",
+  "filesChanged": {
+    "Public API adapters": [
+      "src/app/api/homepage/route.ts",
+      "src/app/api/program/route.ts",
+      "src/app/api/about/route.ts",
+      "src/app/api/podcast/route.ts",
+      "src/app/api/schedule/route.ts",
+      "src/app/api/now-playing/route.ts"
+    ],
+    "Validated public sources and cache": [
+      "src/lib/upstream-cache.ts",
+      "src/lib/public-sources/homepage.ts",
+      "src/lib/public-sources/about.ts",
+      "src/lib/public-sources/podcast.ts",
+      "src/lib/public-sources/schedule.ts",
+      "src/lib/public-sources/now-playing.ts"
+    ],
+    "Client request optimization": [
+      "src/lib/now-playing-polling.ts",
+      "src/components/ListenNowPlayer.tsx",
+      "src/app/page.tsx",
+      "src/app/about/page.tsx",
+      "src/app/program/page.tsx"
+    ],
+    "Mock tests and regression harness": [
+      "tests/helpers/app-loader.mjs",
+      "tests/phase3a.test.mjs",
+      "tests/api-security.test.mjs",
+      "tests/fixtures/mock-upstream.cjs",
+      "scripts/smoke.mjs"
+    ]
+  },
+  "cache": {
+    "mechanism": "Next.js 16 unstable_cache / Data Cache; Vercel-managed persistence when deployed, no Redis",
+    "ttlsSeconds": {
+      "homepage": 300,
+      "program": 300,
+      "about": 900,
+      "podcast": 900,
+      "schedule": 60,
+      "nowPlaying": 15
+    },
+    "homepageProgram": "Both API adapters call the same cached homepage scraper",
+    "semantics": "Request-driven time revalidation. Expired content may be served while background revalidation runs; TTL is not a strict maximum data age. Failed revalidation retains the previous validated entry while that entry exists.",
+    "coldMisses": "Concurrent calls to the same source module coalesce through a temporary promise; no distributed cold-miss lock.",
+    "validation": "Only successful validated DTOs enter Data Cache. Errors/fallback labels are outside cache. Raw upstream fetch is deliberately no-store to avoid caching HTTP 200 bot/error HTML. No additional route/CDN cache layer.",
+    "excluded": "Personal/admin data, Supabase, and live audio are not cached by this implementation",
+    "documentation": "https://nextjs.org/docs/app/api-reference/functions/unstable_cache"
+  },
+  "timeoutsMs": {
+    "websiteAndSheets": 8000,
+    "voscastMetadata": 3000,
+    "clientMetadata": 5000
+  },
+  "polling": {
+    "intervalMs": 15000,
+    "config": "NOW_PLAYING_REFRESH_INTERVAL_MS or startNowPlayingPolling second argument",
+    "behavior": "Pause/abort hidden; resume once; skip admin routes; abort on unmount; one pending request; schedule next interval after completion; ignore redundant visibility notifications; preserve last title on request failure"
+  },
+  "compatibility": {
+    "successResponseShapes": "Preserved across all six APIs",
+    "aboutFailure": "Now returns HTTP 500 with members/aboutBackgrounds arrays rather than HTTP 200 empty content",
+    "dynamicContent": "Removed invented homepage quote and outdated December 2025/tagline fallback. No replacement official content is invented.",
+    "schedule": "One initial request feeds title and grid; existing CSV splitting algorithm retained; refresh 60 seconds after prior request completes"
+  },
+  "mockCounts": {
+    "scenario": "Two sequential passes over all six APIs within TTL; mocked upstreams",
+    "baselineMethod": "Replay with cache backend disabled to reproduce previous uncached request behavior",
+    "cacheMethod": "Installed Next unstable_cache with a deterministic mock storage backend",
+    "before": {
+      "homepage": 4,
+      "about": 2,
+      "podcast": 2,
+      "schedule": 2,
+      "now-playing": 4
+    },
+    "after": {
+      "homepage": 1,
+      "about": 1,
+      "podcast": 1,
+      "schedule": 1,
+      "now-playing": 2
+    },
+    "beforeTotal": 14,
+    "afterTotal": 6,
+    "programInitialScheduleRequests": {
+      "before": 2,
+      "after": 1,
+      "afterVerifiedBy": "Production browser smoke test"
+    }
+  },
+  "validationResults": {
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "npm run lint (also executed by prebuild)",
+      "exitCode": 0
+    },
+    "productionBuild": {
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    "fullUnitRegression": {
+      "command": "npm test",
+      "passed": 21,
+      "failed": 0,
+      "fullSuiteRuns": 1
+    },
+    "finalTargetedTests": {
+      "command": "node --experimental-strip-types --test tests/phase3a.test.mjs",
+      "passed": 15,
+      "failed": 0
+    },
+    "productionSmoke": {
+      "command": "npm run test:smoke",
+      "passed": 39,
+      "failed": 0,
+      "report": "reports/phase3a/smoke-results.json",
+      "repeatedReason": "Initial new visibility test failed; fixed redundant visibility handling and restored native visibility before navigation, then repeated smoke to verify.",
+      "persistentCache": "Second independent production server reused the first server Data Cache without fetching the homepage again"
+    },
+    "isolation": "Upstream HTTP, browser external requests and media use local fixtures. No live upstream load tests, database migration, or deployment. Mock-created fetch-cache entries removed after smoke."
+  },
+  "remaining": [
+    "Durable last-known-good storage is deferred; cache eviction/absence plus upstream outage still yields the existing generic failure/fallback contracts.",
+    "Vercel-managed cache behavior is based on the supported Data Cache mechanism; no Vercel deployment or cross-region live verification was performed.",
+    "Cold misses in separate instances can still overlap; rate limiting and distributed coordination were not implemented.",
+    "Existing HTML selectors, CSV parsing limitations, and podcast category labels remain for a later phase.",
+    "Physical device playback, real upstream content changes and PWA service-worker lifecycle were not tested in this phase."
+  ],
+  "preserved": {
+    "phase1Dependencies": true,
+    "securityHeaders": true,
+    "supabaseAdminStorage": true,
+    "streamingProvider": true,
+    "serviceWorker": true,
+    "environmentUnchanged": true,
+    "deployment": false
+  },
+  "phase3BReady": true
+}

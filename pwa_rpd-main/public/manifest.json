@@ -1,0 +1,46 @@
+{
+  "name": "Radio PPI Dunia",
+  "short_name": "RPD Mobile",
+  "description": "Suara Anak Bangsa, Satu Cinta, Satu Indonesia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#8B0000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/rpd-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/rpd-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/rpd-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/rpd-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["entertainment", "music", "news"],
+  "screenshots": [
+    {
+      "src": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2000",
+      "sizes": "2000x1333",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Studio Radio PPI Dunia"
+    }
+  ]
+}
